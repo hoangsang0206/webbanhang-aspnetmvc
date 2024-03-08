@@ -1,0 +1,521 @@
+﻿
+@{
+    ViewBag.Title = ViewBag.title;
+}
+
+@model List<STech_Web.Models.Product>
+
+<section class="breadcrumb">
+    <ul class="breadcrumb-list d-flex">
+        @foreach (var item in ViewBag.Breadcrumb)
+        {
+            <li class="breadcrumb-item">
+                @if (item.BreadcrumbLink == "")
+                {
+                    <span>@item.BreadcrumbName</span>
+                }
+                else
+                {
+                    <a href="@item.BreadcrumbLink">
+                        @item.BreadcrumbName
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</section>
+
+<section class="filter-products">
+    <div class="filter-box d-flex justify-content-between mt-2 mb-3 gap-2">
+        <div class="filter-button-list d-flex flex-wrap gap-2 align-items-center">
+            <div class="filter-all-dropdown filter-btn position-relative">
+                <div class="filter-head filter-all-btn">
+                    <i class='bx bx-filter-alt filter-icon'></i>
+                    <span>Lọc</span>
+                </div>
+                <form class="filter-contents">
+                    <button type="button" class="close-filter position-absolute">
+                        <i class="bx bx-x"></i>
+                    </button>
+                    @if (ViewBag.ProductBrands.Count > 1)
+                    {
+                        <div class="filter-brands-box mt-5">
+                            <h6>Hãng</h6>
+                            <div class="d-flex flex-wrap gap-3">
+                                @foreach (var brand in ViewBag.ProductBrands)
+                                {
+                                    <div class="filter-checkbox">
+                                        <input type="checkbox" name="filter-brand" id="cbox-all-filter-@brand.BrandID" value="@brand.BrandID" class="d-none" />
+                                        <label for="cbox-all-filter-@brand.BrandID">@brand.BrandName</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                    <div class="filter-price-box mt-5">
+                        <h6>Giá</h6>
+                        <input type="hidden" name="currentCate" value="@ViewBag.cateID" />
+                        <input type="hidden" name="sort" value="@ViewBag.sortValue" />
+                        <div class="filter-price-box">
+                            <div class="filter-price-value d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                <div class="filter-input d-flex align-items-center gap-2">
+                                    <span>Từ</span>
+                                    <input type="text" id="minPrice1" name="minPrice" value="100.000đ" />
+                                </div>
+                                <span>-</span>
+                                <div class="filter-input d-flex align-items-center gap-2">
+                                    <span>Đến</span>
+                                    <input type="text" id="maxPrice1" name="maxPrice" value="140.000.000đ" />
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="filter-price-range position-relative">
+                                <div class="range-progress position-absolute"> </div>
+                                <input type="range" class="input-range range-min" name="range-min" min="100000" max="139000000" value="0" />
+                                <input type="range" class="input-range range-max" name="range-max" min="200000" max="140000000" value="140000000" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-action d-flex gap-3 mt-5">
+                        <button type="button" class="filter-action-btn cancel-filter">
+                            Bỏ chọn
+                        </button>
+                        <button type="submit" class="filter-action-btn confirm-filter">
+                            Xác nhận
+                        </button>
+                    </div>
+                </form>
+            </div>
+            @if (ViewBag.ProductBrands.Count > 1)
+            {
+                <div class="filter-brands filter-btn position-relative">
+                    <div class="filter-head">
+                        Hãng
+                    </div>
+                    <form class="filter-contents">
+                        <div class="filter-brands-box d-flex flex-wrap gap-3">
+                            @foreach (var brand in ViewBag.ProductBrands)
+                            {
+                                <div class="filter-checkbox">
+                                    <input type="checkbox" name="filter-brand" id="cbox-filter-@brand.BrandID" value="@brand.BrandID" class="d-none" />
+                                    <label for="cbox-filter-@brand.BrandID">@brand.BrandName</label>
+                                </div>
+                            }
+                        </div>
+                        <div class="filter-action d-flex gap-3 mt-5">
+                            <button type="button" class="filter-action-btn cancel-filter">
+                                Bỏ chọn
+                            </button>
+                            <button type="submit" class="filter-action-btn confirm-filter">
+                                Xác nhận
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            }
+            <div class="filter-price filter-btn position-relative">
+                <div class="filter-head">
+                    Giá
+                </div>
+                <form action="#" method="post" class="filter-contents">
+                    <input type="hidden" name="currentCate" value="@ViewBag.cateID" />
+                    <input type="hidden" name="sort" value="@ViewBag.sortValue" />
+                    <div class="filter-price-box">
+                        <div class="filter-price-value d-flex flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="filter-input d-flex align-items-center gap-2">
+                                <span>Từ</span>
+                                <input type="text" id="minPrice2" name="minPrice" value="100.000đ" />
+                            </div>
+                            <span>-</span>
+                            <div class="filter-input d-flex align-items-center gap-2">
+                                <span>Đến</span>
+                                <input type="text" id="maxPrice2" name="maxPrice" value="140.000.000đ" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="filter-price-range position-relative">
+                            <div class="range-progress position-absolute"> </div>
+                            <input type="range" class="input-range range-min" name="range-min" min="100000" max="139000000" value="0" />
+                            <input type="range" class="input-range range-max" name="range-max" min="200000" max="140000000" value="140000000" />
+                        </div>
+                    </div>
+                    <div class="filter-action d-flex gap-3 mt-5">
+                        <button type="button" class="filter-action-btn cancel-filter">
+                            Bỏ chọn
+                        </button>
+                        <button type="submit" class="filter-action-btn confirm-filter">
+                            Xác nhận
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="sort-dropdown-box d-flex align-items-center justify-content-end">
+            <div class="sort-dropdown">
+                <button class="sort-dropdown-btn">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                    Sắp xếp theo: <span id="sort-value">@ViewBag.SortName</span>
+                </button>
+                <div class="sort-dropdown-content">
+                    <a href="/collections/@ViewBag.cateID?sort=random&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "random" ? "active" : "" )">
+                            Ngẫu nhiên
+                        </div>
+                    </a>
+
+                    <a href="/collections/@ViewBag.cateID?sort=price-ascending&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "price-ascending" ? "active" : "" )">
+                            Giá tăng dần
+                        </div>
+                    </a>
+
+                    <a href="/collections/@ViewBag.cateID?sort=price-descending&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "price-descending" ? "active" : "" )">
+                            Giá giảm dần
+                        </div>
+                    </a>
+
+                    <a href="/collections/@ViewBag.cateID?sort=name-az&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "name-az" ? "active" : "" ) ">
+                            Tên A-Z
+                        </div>
+                    </a>
+
+                    <a href="/collections/@ViewBag.cateID?sort=name-za&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "name-za" ? "active" : "" )">
+                            Tên Z - A
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @if (Model.Count <= 0)
+    {
+        <div class="filter-error mt-3 mb-5 px-3 d-flex flex-column align-items-center justify-content-center">
+            <p class="text-center">
+                Có thể các sản phẩm này chưa được cập nhật hoặc đã hết hàng, vui lòng chọn danh mục sản phẩm khác
+            </p>
+            <button class="to-home-page-btn" onclick="window.location.href='/'">
+                QUAY LẠI TRANG CHỦ
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="filter-item-list">
+            @foreach (var item in Model)
+            {
+                <div class="filter-item">
+                    <div class="product-box">
+                        <a href="/product/@item.ProductID" class="product-link">
+                            <div class="product-image lazy-loading">
+                                <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                            </div>
+                        </a>
+                        @if (item.WareHouse.Quantity <= 0)
+                        {
+                            <div class="out-of-stock mt-1 text-center">
+                                Hết hàng
+                            </div>
+                        }
+                        <a href="/product/@item.ProductID" class="product-link">
+                            <div class="product-name">
+                                @item.ProductName
+                            </div>
+                        </a>
+
+                        @{ double discountPercent = 0; }
+                        <div class="product-original-price">
+                            @if (item.Cost > item.Price)
+                            {
+                                decimal cost = Convert.ToDecimal(item.Cost);
+
+                                discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                    / Convert.ToDouble(item.Cost)) * 100;
+                                <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                            }
+                            else
+                            {
+                                <span style="visibility: hidden">0</span>
+                            }
+                        </div>
+                        <div class="product-price d-flex flex-wrap align-items-center">
+                            @{
+                                decimal price = Convert.ToDecimal(item.Price);
+
+                            }
+                            <span>@price.ToString("#,###", ViewBag.cul)đ</span>
+                            @if (discountPercent > 0)
+                            {
+                                <div class="product-discount-percent">
+                                    @( "-" + (int)discountPercent + "%" )
+                                </div>
+                            }
+                        </div>
+                        <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                        <button class="btn-add-to-cart" data-product="@item.ProductID">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="pagination-box d-flex justify-content-center align-items-center">
+
+        @if (ViewBag.Page > 1)
+        {
+            if (ViewBag.NoOfPages > 2)
+            {
+                <button class="pagination-first-page pagination-btn" onclick="window.location.href='/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=1'">
+                    <img src="/images/icons/double-chevron-left.png" alt="" class="pagination-icon" />
+                </button>
+            }
+
+            <button class="pagination-previous pagination-btn" onclick="window.location.href='/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@(ViewBag.Page - 1)'">
+                <img src="/images/icons/chevron-left.png" alt="" class="pagination-icon" />
+            </button>
+        }
+
+        <ul class="pagination d-flex align-items-center p-0 m-0">
+            @if (ViewBag.NoOfPages > 1)
+            {
+                if (ViewBag.NoOfPages <= 3)
+                {
+                    for (int i = 1; i <= ViewBag.NoOfPages; i++)
+                    {
+                        <li class="pagination-item @(i == ViewBag.Page ? "active" : "")">
+                            <a href="/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@i">@i</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    int startPage = ViewBag.Page - 1;
+                    int endPage = ViewBag.Page + 1;
+
+
+                    if (startPage > 1)
+                    {
+                        <li class="mx-2">
+                            <span>...</span>
+                        </li>
+                    }
+
+                    if (ViewBag.Page <= 1)
+                    {
+                        startPage = 1;
+                        endPage = 3;
+                    }
+                    else if (ViewBag.Page >= ViewBag.NoOfPages)
+                    {
+                        startPage = ViewBag.NoOfPages - 2;
+                        endPage = ViewBag.NoOfPages;
+                    }
+
+                    for (int i = startPage; i <= endPage; i++)
+                    {
+                        <li class="pagination-item @(i == ViewBag.Page ? "active" : "")">
+                            <a href="/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@i">@i</a>
+                        </li>
+                    }
+
+                    if (endPage < ViewBag.NoOfPages)
+                    {
+                        <li class="mx-2">
+                            <span>...</span>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+
+        @if (ViewBag.Page < ViewBag.NoOfPages)
+        {
+            <button class="pagination-next pagination-btn" onclick="window.location.href='/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@(ViewBag.Page + 1)'">
+                <img src="/images/icons/chevron-right.png" alt="" class="pagination-icon" />
+            </button>
+
+            if (ViewBag.NoOfPages > 2)
+            {
+                <button class="pagination-last-page pagination-btn" onclick="window.location.href='/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=@ViewBag.NoOfPages'">
+                    <img src="/images/icons/double-chevron-right.png" alt="" class="pagination-icon" />
+                </button>
+            }
+        }
+
+    </div>
+
+</section>
+
+<section class="side-overlay"></section>
+
+<script>
+    const priceGap = 1000000;
+    const rangeInputFormAll = document.querySelectorAll('.filter-all-dropdown .input-range');
+    const rangeInputFormPrice = document.querySelectorAll('.filter-price .input-range');
+    const progressFormAll = document.querySelector('.filter-all-dropdown .range-progress');
+    const progressFormPrice = document.querySelector('.filter-price .range-progress');
+    const minPrice1 = document.getElementById("minPrice1");
+    const maxPrice1 = document.getElementById("maxPrice1");
+    const minPrice2 = document.getElementById("minPrice2");
+    const maxPrice2 = document.getElementById("maxPrice2");
+
+    const documentMinPrice = @Json.Encode(ViewBag.MinPrice);
+    const documentMaxPrice = @Json.Encode(ViewBag.MaxPrice);
+
+    if (documentMinPrice != null) {
+        rangeInputFormAll[0].value = documentMinPrice;
+        rangeInputFormPrice[0].value = documentMinPrice;
+        progressFormAll.style.left = (documentMinPrice / rangeInputFormAll[0].max) * 100 + "%";
+        progressFormPrice.style.left = (documentMinPrice / rangeInputFormPrice[0].max) * 100 + "%";
+        minPrice1.value = parseInt(rangeInputFormAll[0].value).toLocaleString('vi-VN') + 'đ';
+        minPrice2.value = parseInt(rangeInputFormPrice[0].value).toLocaleString('vi-VN') + 'đ';
+        document.querySelector('.filter-price').classList.add('active');
+    }
+
+    if (documentMaxPrice != null) {
+        rangeInputFormAll[1].value = documentMaxPrice;
+        rangeInputFormPrice[1].value = documentMaxPrice;
+        progressFormAll.style.right = 100 - (documentMaxPrice / rangeInputFormAll[1].max) * 100 + "%";
+        progressFormPrice.style.right = 100 - (documentMaxPrice / rangeInputFormPrice[1].max) * 100 + "%";
+        maxPrice1.value = parseInt(rangeInputFormAll[1].value).toLocaleString('vi-VN') + 'đ';
+        maxPrice2.value = parseInt(rangeInputFormPrice[1].value).toLocaleString('vi-VN') + 'đ';
+        document.querySelector('.filter-price').classList.add('active');
+    }
+
+    rangeInputFormAll.forEach(input => {
+        input.addEventListener('input', e => {
+            let minVal = parseInt(rangeInputFormAll[0].value);
+            let maxVal = parseInt(rangeInputFormAll[1].value);
+
+            if (maxVal - minVal < priceGap) {
+                if (e.target.className === 'range-min') {
+                    rangeInputFormAll[0].value = maxVal - priceGap;
+                }
+                else {
+                    rangeInputFormAll[1].value = minVal + priceGap;
+                }
+            }
+            else {
+                rangeInputFormAll[0].value = minVal;
+                rangeInputFormAll[1].value = maxVal;
+            }
+
+            progressFormAll.style.left = (minVal / rangeInputFormAll[0].max) * 100 + "%";
+            progressFormAll.style.right = 100 - (maxVal / rangeInputFormAll[1].max) * 100 + "%";
+
+            minPrice1.value = parseInt(rangeInputFormAll[0].value).toLocaleString('vi-VN') + 'đ';
+            maxPrice1.value = parseInt(rangeInputFormAll[1].value).toLocaleString('vi-VN') + 'đ';
+        })
+    })
+
+    rangeInputFormPrice.forEach(input => {
+        input.addEventListener('input', e => {
+            let minVal = parseInt(rangeInputFormPrice[0].value);
+            let maxVal = parseInt(rangeInputFormPrice[1].value);
+
+            if (maxVal - minVal < priceGap) {
+                if (e.target.className === 'range-min') {
+                    rangeInputFormPrice[0].value = maxVal - priceGap;
+                }
+                else {
+                    rangeInputFormPrice[1].value = minVal + priceGap;
+                }
+            }
+            else {
+                rangeInputFormPrice[0].value = minVal;
+                rangeInputFormPrice[1].value = maxVal;
+            }
+
+            progressFormPrice.style.left = (minVal / rangeInputFormPrice[0].max) * 100 + "%";
+            progressFormPrice.style.right = 100 - (maxVal / rangeInputFormPrice[1].max) * 100 + "%";
+
+            minPrice2.value = parseInt(rangeInputFormPrice[0].value).toLocaleString('vi-VN') + 'đ';
+            maxPrice2.value = parseInt(rangeInputFormPrice[1].value).toLocaleString('vi-VN') + 'đ';
+        })
+    })
+
+    const formAll = document.querySelector('.filter-all-dropdown .filter-contents');
+    const cancelFilterAll = formAll.querySelector('.cancel-filter');
+    formAll.addEventListener('submit', (event) => {
+        event.preventDefault();
+        var brandBox = formAll.querySelector('.filter-brands-box');
+        if (brandBox != null) {
+            var checkedBrands = brandBox.querySelectorAll('input[name="filter-brand"]:checked');
+            var brandValues = Array.from(checkedBrands).map((item) => {
+                return item.value;
+            })
+            if (brandValues.length > 0) {
+                window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=' + brandValues.join(',') + '&type=@ViewBag.Type&minprice=' + rangeInputFormAll[0].value + '&maxprice=' + rangeInputFormAll[1].value + '&page=1';
+            }
+            else {
+                window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=' + rangeInputFormAll[0].value + '&maxprice=' + rangeInputFormAll[1].value + '&page=1';
+            }
+        }
+        else {
+            window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=' + rangeInputFormAll[0].value + '&maxprice=' + rangeInputFormAll[1].value + '&page=1';
+        }
+    })
+    cancelFilterAll.addEventListener('click', () => {
+        window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&page=1'
+
+    })
+
+    const formPrice = document.querySelector('.filter-price .filter-contents');
+    formPrice.addEventListener('submit', (event) => {
+        event.preventDefault();
+        window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=' + rangeInputFormPrice[0].value + '&maxprice=' + rangeInputFormPrice[1].value + '&page=1';
+    })
+    const cancelFilterPrice = document.querySelector('.filter-price .cancel-filter');
+    cancelFilterPrice.addEventListener('click', () => {
+        window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=@ViewBag.Type&minprice=&maxprice=&page=1';
+    })
+
+    const formBrands = document.querySelector('.filter-brands .filter-contents');
+    if (formBrands != null) {
+        formBrands.addEventListener('submit', (event) => {
+            event.preventDefault();
+            var checkedBrands = formBrands.querySelectorAll('input[name="filter-brand"]:checked');
+            var brandValues = Array.from(checkedBrands).map((item) => {
+                return item.value;
+            })
+            if (brandValues.length > 0) {
+                window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=' + brandValues.join(',') + '&type=&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=1';
+            }
+            else {
+                window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=@ViewBag.Brand&type=&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=1';
+            }
+        })
+
+        const cancelFilterBrand = document.querySelector('.filter-brands .cancel-filter');
+        cancelFilterBrand.addEventListener('click', () => {
+            var checkBrands = formBrands.querySelectorAll('input[name="filter-brand"]');
+            checkBrands.forEach(item => {
+                item.checked = false;
+            })
+
+            window.location.href = '/collections/@ViewBag.cateID?sort=@ViewBag.sortValue&brand=&type=&minprice=@ViewBag.MinPrice&maxprice=@ViewBag.MaxPrice&page=1';
+        })
+
+        var checkedBrandStr = @Html.Raw(Json.Encode(ViewBag.Brand));
+        var checkedBrandArr = checkedBrandStr.split(',');
+        var allCheckBrand = document.querySelectorAll('input[name="filter-brand"]');
+        allCheckBrand.forEach(item => {
+            if (checkedBrandArr.includes(item.value)) {
+                item.checked = true;
+            }
+        })
+        var checkedBrands = formBrands.querySelectorAll('input[name="filter-brand"]:checked');
+        if (checkedBrands.length > 0) {
+            document.querySelector('.filter-brands').classList.add('active');
+        }
+    }
+</script>

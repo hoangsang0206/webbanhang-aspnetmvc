@@ -1,0 +1,282 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý danh mục";
+}
+
+@model List<STech_Web.Models.Category> 
+
+<div class="categories position-relative">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+
+    <h2 class="title">Quản lý danh mục</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Quản lý danh mục
+            </li>
+        </ul>
+    </div>
+    <div class="categories-content">
+        <div class="action-box categories-action d-flex flex-wrap">
+            <button class="add-category-btn">
+                <i class="fa-regular fa-square-plus action-btn-icon"></i>
+                Thêm danh mục
+            </button>
+            <button class="add-brand-btn">
+                <i class="fa-regular fa-square-plus action-btn-icon"></i>
+                Thêm hãng
+            </button>
+            <div class="categories-action-notice"></div>
+        </div>
+        <div class="categories-content-box">
+            <div class="box-header d-flex flex-wrap align-items-center justify-content-between">
+                <h5>Danh sách danh mục</h5>
+                <button class="reload-action-btn reload-categories">Tải lại</button>
+            </div>
+            <hr />
+            <div class="categories-list">
+                @{
+                    int i = 1;
+                    <table class="table">
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã danh mục</th>
+                            <th>Tên danh mục</th>
+                            <th>Hình ảnh</th>
+                            <th>Số sản phẩm</th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.CateID</td>
+                                <td>@item.CateName</td>
+                                <td>
+                                    <img src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" />
+                                </td>
+                                <td>@item.Products.Count</td>
+                                <td>
+                                    <div class="categories-button-box d-flex justify-content-end flex-wrap gap-2">
+                                        <button class="cate-btn cate-update-btn" data-update-cate="@item.CateID">Sửa</button>
+                                        <button class="cate-btn cate-delete-btn" data-del-cate="@item.CateID" @(!User.IsInRole("Admin") ? "disabled" : "")>Xóa</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </table>
+                }
+            </div>
+        </div>
+        <div class="brands">
+            <div class="box-header d-flex align-items-center justify-content-between">
+                <h5>Hãng sản xuất </h5>
+                <button class="reload-brands-btn">Tải lại</button>
+            </div>
+            <hr />
+            <div class="brand-list">
+                <table class="table">
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã hãng</th>
+                        <th>Tên hãng</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ</th>
+                        <th>Hình ảnh</th>
+                        <th></th>
+                    </tr>
+                    @{ int j = 1; }
+                    @foreach (var item in ViewBag.Brands)
+                    {
+                        <tr>
+                            <td>@j</td>
+                            <td>@item.BrandID</td>
+                            <td>@item.BrandName</td>
+                            <td>@item.Phone</td>
+                            <td>@item.BrandAddress</td>
+                            <td>
+                                <img src="@item.BrandImgSrc" alt="" />
+                            </td>
+                            <td>
+                                <div class="brands-button-box d-flex justify-content-end flex-wrap gap-2">
+                                    <button class="cate-btn brand-update-btn" data-update-brand="@item.BrandID">Sửa</button>
+                                    <button class="cate-btn brand-delete-btn" data-del-brand="@item.BrandID" @(!User.IsInRole("Admin") ? "disabled" : "")>Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                        j++;
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-category">
+        <div class="form-box d-flex flex-column">
+            <div class="close-form close-add-category position-absolute">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h3 class="form-header text-center m-0">THÊM DANH MỤC</h3>
+            <div class="form-error"></div>
+            <form action="#" method="post" class="add-category-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="category-id" name="category-id" value="" class="form-input" required />
+                    <label for="category-id" class="input-label position-absolute">Mã danh mục</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="category-name" name="category-name" value="" class="form-input" required />
+                    <label for="category-name" class="input-label position-absolute">Tên danh mục</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="category-img" name="category-img" value="" class="form-input" />
+                    <label for="category-img" class="input-label position-absolute">Đường dẫn hình ảnh</label>
+                </div>
+                <button type="submit" class="form-submit-btn">THÊM DANH MỤC</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="add-brand">
+        <div class="form-box d-flex flex-column">
+            <div class="close-form close-add-brand position-absolute">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h3 class="form-header text-center m-0">THÊM HÃNG</h3>
+            <div class="form-error"></div>
+            <form action="#" method="post" class="add-brand-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="brand-id" name="brand-id" value="" class="form-input" required />
+                    <label for="brand-id" class="input-label position-absolute">Mã hãng</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="brand-name" name="brand-name" value="" class="form-input" required />
+                    <label for="brand-name" class="input-label position-absolute">Tên hãng</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="brand-address" name="brand-address" value="" class="form-input" />
+                    <label for="brand-address" class="input-label position-absolute">Địa chỉ</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="brand-phone" name="brand-phone" value="" class="form-input" />
+                    <label for="brand-phone" class="input-label position-absolute">Số điện thoại</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="brand-img" name="brand-img" value="" class="form-input" />
+                    <label for="brand-img" class="input-label position-absolute">Đường dẫn hình ảnh</label>
+                </div>
+                <button type="submit" class="form-submit-btn">THÊM HÃNG</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="update-category">
+        <div class="form-box d-flex flex-column">
+            <div class="close-form close-update-category position-absolute">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h3 class="form-header text-center m-0">SỬA DANH MỤC</h3>
+            <div class="form-error"></div>
+            <form action="#" method="post" class="update-category-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-category-id" name="category-id" value="" class="form-input" required />
+                    <label for="update-category-id" class="input-label position-absolute">Mã danh mục</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-category-name" name="category-name" value="" class="form-input" required />
+                    <label for="update-category-name" class="input-label position-absolute">Tên danh mục</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-category-img" name="category-img" value="" class="form-input" />
+                    <label for="update-category-img" class="input-label position-absolute">Đường dẫn hình ảnh</label>
+                </div>
+                <button type="submit" class="form-submit-btn">SỬA DANH MỤC</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="update-brand">
+        <div class="form-box d-flex flex-column">
+            <div class="close-form close-update-brand position-absolute">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h3 class="form-header text-center m-0">SỬA THÔNG TIN HÃNG</h3>
+            <div class="form-error"></div>
+            <form action="#" method="post" class="update-brand-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-brand-id" name="update-brand-id" value="" class="form-input" required />
+                    <label for="update-brand-id" class="input-label position-absolute">Mã hãng</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-brand-name" name="update-brand-name" value="" class="form-input" required />
+                    <label for="update-brand-name" class="input-label position-absolute">Tên hãng</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-brand-address" name="update-brand-address" value="" class="form-input" />
+                    <label for="update-brand-address" class="input-label position-absolute">Địa chỉ</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-brand-phone" name="update-brand-phone" value="" class="form-input" />
+                    <label for="update-brand-phone" class="input-label position-absolute">Số điện thoại</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="update-brand-img" name="update-brand-img" value="" class="form-input" />
+                    <label for="update-brand-img" class="input-label position-absolute">Đường dẫn hình ảnh</label>
+                </div>
+                <button type="submit" class="form-submit-btn">SỬA HÃNG</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="delete-cate-confirm position-fixed">
+        <div class="delete-cate-confirm-box d-flex flex-column align-items-center">
+            <i class="fa-regular fa-circle-question"></i>
+            <span>Xóa danh mục này?</span>
+            <div class="delete-cate-confirm-btn-box d-flex justify-content-between">
+                <button class="delete-cate-confirm-no">Hủy</button>
+                <button class="delete-cate-confirm-yes">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="delete-brand-confirm position-fixed">
+        <div class="delete-brand-confirm-box d-flex flex-column align-items-center">
+            <i class="fa-regular fa-circle-question"></i>
+            <span>Xóa hãng này?</span>
+            <div class="delete-cate-confirm-btn-box d-flex justify-content-between">
+                <button class="delete-brand-confirm-no">Hủy</button>
+                <button class="delete-brand-confirm-yes">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="complete-notice">
+        <div class="complete-notice-box d-flex flex-column align-items-center">
+            <i class='bx bx-check-circle bx-tada'></i>
+            <span>Thêm thành công.</span>
+            <button>OK</button>
+        </div>
+    </div>
+
+    <div class="complete-update-notice">
+        <div class="complete-notice-box d-flex flex-column align-items-center">
+            <i class='bx bx-check-circle bx-tada'></i>
+            <span>Sửa thành công.</span>
+            <button>OK</button>
+        </div>
+    </div>
+
+    <div class="complete-delete-notice">
+        <div class="complete-notice-box d-flex flex-column align-items-center">
+            <i class='bx bx-check-circle bx-tada'></i>
+            <span>Xóa thành công.</span>
+            <button>OK</button>
+        </div>
+    </div>
+
+</div>

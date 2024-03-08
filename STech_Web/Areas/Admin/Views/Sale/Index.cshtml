@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Khuyến mãi";
+}
+
+@model List<STech_Web.Models.Sale>
+
+<div class="sale position-relative mb-4">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+
+    <h2 class="title">Khuyến mãi</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Khuyến mãi
+            </li>
+        </ul>
+    </div>
+
+    <div class="sale-content">
+        <div class="sale-main-header mb-3">
+            <button class="page-btn create-sale-btn d-flex align-items-center gap-2" onclick="window.location.href = '/admin/sale/create'">
+                <i class="fa-regular fa-square-plus"></i>
+                Tạo mới khuyến mãi
+            </button>
+        </div>
+        <div class="sale-list">
+            <table class="table">
+                <tr>
+                    <th>STT</th>
+                    <th>Thời gian bắt đầu</th>
+                    <th>Thời gian kết thúc</th>
+                    <th>Tổng số sản phẩm</th>
+                    <th>Trạng thái</th>
+                    <th></th>
+                </tr>
+                @{ int i = 1; }
+                @foreach (var sale in Model)
+                {
+                    string statusClass = sale.Status == "Chờ" ? "waiting" : sale.Status == "Kết thúc" ? "ended" : "started";
+                    <tr>
+                        <td>@i</td>
+                        <td>@sale.StartTime</td>
+                        <td>@sale.EndTime</td>
+                        <td>@sale.SaleDetails.Count</td>
+                        <td class="sale-status @statusClass">@sale.Status</td>
+                        <td>
+                            <div class="d-flex dlex-wrap gap-2 justify-content-end">
+                                @if (sale.Status == "Chờ" && sale.EndTime >= DateTime.Now)
+                                {
+                                    <button class="sale-btn begin-sale-btn" @(sale.StartTime >= DateTime.Now ? "disabled" : "") onclick="window.location.href = '/admin/sale/beginsale?saleId=@sale.SaleID'">
+                                        Bắt đầu
+                                    </button>
+                                }
+                                else if (sale.Status == "Bắt đầu")
+                                {
+                                    <button class="sale-btn end-sale-btn" onclick="window.location.href = '/admin/sale/endsale?saleId=@sale.SaleID'">
+                                        Kết thúc
+                                    </button>
+                                }
+                                <button class="sale-btn sale-detail-btn" onclick="window.location.href = '/admin/sale/detail?saleID=@sale.SaleID'">Chi tiết</button>
+                                <button class="sale-btn delete-sale-btn" @(sale.EndTime >= DateTime.Now && sale.Status == "Chờ" ? "" : "disabled") onclick="window.location.href='/admin/sale/delete?saleID=@sale.SaleID'">Hủy</button>
+                            </div>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,237 @@
+﻿<div class="delete-product-confirm">
+    <div class="delete-confirm-box d-flex flex-column align-items-center">
+        <i class="fa-regular fa-circle-question"></i>
+        <span>Xóa sản phẩm này ?</span>
+        <div class="delete-button-box">
+            <button class="cancel-delete">
+                Hủy
+            </button>
+            <button class="confirm-delete">
+                Xóa
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="add-product">
+    <div class="product-form-container position-relative">
+        <div class="close-form close-product-form position-absolute">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h3 class="form-header text-center m-0">THÊM SẢN PHẨM</h3>
+        <div class="product-images-wrapper mb-4">
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-1" alt="" />
+                </div>
+                <span>Hình ảnh chính</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-2" alt="" />
+                </div>
+                <span>Hình ảnh 1</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-3" alt="" />
+                </div>
+                <span>Hình ảnh 2</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-4" alt="" />
+                </div>
+                <span>Hình ảnh 3</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-5" alt="" />
+                </div>
+                <span>Hình ảnh 4</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-6" alt="" />
+                </div>
+                <span>Hình ảnh 5</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-7" alt="" />
+                </div>
+                <span>Hình ảnh 6</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="/images/no-image.jpg" class="p-img-8" alt="" />
+                </div>
+                <span>Hình ảnh 7</span>
+            </div>
+        </div>
+        <form action="#" method="post" class="add-product-form d-flex flex-wrap">
+
+            <div class="left-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="ProductID" name="ProductID" value="" class="form-input" required />
+                    <label for="ProductID" class="input-label position-absolute">Mã sản phẩm</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="ProductName" name="ProductName" value="" class="form-input" required />
+                    <label for="ProductName" class="input-label position-absolute">Tên sản phẩm</label>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="text" id="Cost" name="Cost" value="" class="form-input" required />
+                                <label for="Cost" class="input-label position-absolute">Giá</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="text" id="Price" name="Price" value="" class="form-input" />
+                                <label for="Price" class="input-label position-absolute">Giá bán</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <select class="form-input select-input" id="CateID" name="CateID">
+                                    <option value="khac" selected>Danh mục</option>
+                                    @foreach (var cate in ViewBag.Categories)
+                                    {
+                                        <option value="@cate.CateID">@cate.CateName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <select class="form-input select-input" id="BrandID" name="BrandID">
+                                    <option value="khac" selected>Hãng</option>
+                                    @foreach (var brand in ViewBag.Brands)
+                                    {
+                                        <option value="@brand.BrandID">@brand.BrandName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="number" id="Warranty" name="Warranty" value="" class="form-input" min="0" required />
+                                <label for="Warranty" class="input-label position-absolute">Bảo hành (tháng)</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="number" id="Quantity" name="Quantity" value="" class="form-input" min="0" required />
+                                <label for="Quantity" class="input-label position-absolute">Số lượng</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="number" id="ManufacturingDate" name="ManufacturingDate" value="" class="form-input" min="0" />
+                                <label for="ManufacturingDate" class="input-label position-absolute">Năm sản xuất</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="text" id="Type" name="Type" value="" class="form-input" />
+                                <label for="Type" class="input-label position-absolute">Loại (vd: vivobook)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="ImgSrc" name="ImgSrc" value="" class="form-input" required />
+                    <label for="ImgSrc" class="input-label position-absolute">Đường dẫn hình ảnh chính</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-1" value="" class="form-input" />
+                    <label for="add-product-image-1" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 1</label>
+                </div>
+            </div>
+
+            <div class="right-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-2" value="" class="form-input" />
+                    <label for="add-product-image-2" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 2</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-3" value="" class="form-input" />
+                    <label for="add-product-image-3" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 3</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-4" value="" class="form-input" />
+                    <label for="add-product-image-4" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 4</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-5" value="" class="form-input" />
+                    <label for="add-product-image-5" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 5</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-6" value="" class="form-input" />
+                    <label for="add-product-image-6" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 6</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-7" value="" class="form-input" />
+                    <label for="add-product-image-7" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 7</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <textarea class="form-input form-area" id="Description" placeholder="Mô tả sản phẩm, tách dòng bằng dấu '/'"></textarea>
+                </div>
+            </div>
+
+            <div class="form-error my-1"></div>
+
+            <div class="form-btn-box d-flex gap-3">
+                <button type="submit" class="form-submit-btn product-submit-btn">THÊM SẢN PHẨM</button>
+                <button type="reset" class="form-submit-reset">Nhập lại</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="complete-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Thêm thành công.</span>
+        <button>OK</button>
+    </div>
+</div>
+
+<div class="complete-update-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Sửa thành công.</span>
+        <button>OK</button>
+    </div>
+</div>
+
+<div class="complete-delete-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Xóa thành công.</span>
+        <button>OK</button>
+    </div>
+</div>
+
+<div class="fail-delete-notice">
+    <div class="fail-notice-box d-flex flex-column align-items-center">
+        <i class='bx bxs-error-circle'></i>
+        <span>Xóa thất bại.</span>
+        <button>OK</button>
+    </div>
+</div>

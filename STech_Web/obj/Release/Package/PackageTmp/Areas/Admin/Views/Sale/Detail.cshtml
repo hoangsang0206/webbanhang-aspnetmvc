@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết khuyến mãi";
+}
+
+@model STech_Web.Models.Sale
+
+<div class="create-sale position-relative mb-4">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+
+    <h2 class="title">Chi tiết khuyến mãi</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/admin/sale">Khuyến mãi</a>
+            </li>
+            <li class="breadcrumb-item">
+                Chi tiết khuyến mãi
+            </li>
+        </ul>
+    </div>
+
+    <div class="create-sale-content">
+        <div class="create-sale-frm">
+            <div class="form-box-header">
+                <h5 class="form-header-text">Thời gian khuyến mãi</h5>
+            </div>
+            <div class="create-sale-box">
+                <div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label for="StartTime">Thời gian bắt đầu</label>
+                        <input type="text" name="StartTime" id="StartTime" value="@Model.StartTime" class="form-add-input" readonly />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label for="EndTime">Thời gian kết thúc</label>
+                        <input type="text" name="EndTime" id="EndTime" value="@Model.EndTime" class="form-add-input" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-box-header">
+                <h5 class="form-header-text">Sản phẩm khuyến mãi</h5>
+            </div>
+            <div class="create-sale-detail-box">
+                @foreach (var item in Model.SaleDetails)
+                {
+                    <div class="create-sale-detail-item">
+                        <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                            <label class="text-nowrap">Mã SP</label>
+                            <input type="text" name="ProductID" value="@item.ProductID" class="form-add-input" readonly />
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                            <label class="text-nowrap">Giá gốc</label>
+                            <input type="text" name="OriginalPrice" value="@item.OriginalPrice" class="form-add-input" readonly />
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                            <label class="text-nowrap">Giá KM</label>
+                            <input type="text" name="SalePrice" value="@item.SalePrice" class="form-add-input" readonly />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

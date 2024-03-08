@@ -1,0 +1,648 @@
+﻿
+@{
+    ViewBag.Title = "Trang chủ - STech";
+}
+
+<section class="menu">
+    @{
+        Html.RenderPartial("Megamenu_Partial");
+    }
+    <div class="slider">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                @for (int i = 1; i < ViewBag.Sliders.Count; i++)
+                {
+                    <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+                }
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="@ViewBag.Sliders[0].SliderLink">
+                        <img src="@ViewBag.Sliders[0].SliderImgSrc" class="d-block w-100" alt="...">
+                    </a>
+                </div>
+                @for (int i = 1; i < ViewBag.Sliders.Count; i++)
+                {
+
+                    <div class="carousel-item">
+                        <a href="@ViewBag.Sliders[i].SliderLink">
+                            <img src="@ViewBag.Sliders[i].SliderImgSrc" class="d-block w-100" alt="...">
+                        </a>
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="policy">
+    <div class="policy-item">
+        <i class="fa-solid fa-truck-fast policy-icon"></i>
+        <div class="policy-content-box">
+            <div class="policy-content">Đảm bảo đúng hẹn</div>
+            <div class="sub-policy-content">Hoàn lại tiền trong 30 ngày</div>
+        </div>
+    </div>
+    <div class="policy-item">
+        <i class="fa-solid fa-wallet policy-icon"></i>
+        <div class="policy-content-box">
+            <div class="policy-content">Miến phí vận chuyển</div>
+            <div class="sub-policy-content">Cho đơn hàng trong bán kính 5km</div>
+        </div>
+    </div>
+    <div class="policy-item">
+        <i class="fa-solid fa-comments policy-icon"></i>
+        <div class="policy-content-box">
+            <div class="policy-content">Hỗ trợ trực tuyến</div>
+            <div class="sub-policy-content">Chúng tôi hỗ trợ 24/24</div>
+        </div>
+    </div>
+    <div class="policy-item">
+        <i class="fa-solid fa-gift policy-icon"></i>
+        <div class="policy-content-box">
+            <div class="policy-content">Khuyến mãi</div>
+            <div class="sub-policy-content">Nhiều khuyến mãi hấp dẫn</div>
+        </div>
+    </div>
+</section>
+
+<section class="banner-1">
+    <div class="banner-1-content">
+        <a href="#">
+            <img src="/images/banner/banner-1-img-1.png" alt="">
+        </a>
+    </div>
+    <div class="banner-1-content">
+        <a href="#">
+            <img src="/images/banner/banner-1-img-1.png" alt="">
+        </a>
+    </div>
+    <div class="banner-1-content">
+        <a href="#">
+            <img src="/images/banner/banner-1-img-1.png" alt="">
+        </a>
+    </div>
+</section>
+
+@if (ViewBag.Sale != null && DateTime.Now >= ViewBag.Sale.StartTime
+    && DateTime.Now <= ViewBag.Sale.EndTime)
+{
+    var SaleDetails = ViewBag.Sale.SaleDetails;
+    <section class="sale">
+        <div class="sale-header">
+            <div class="countdown">
+                <div class="countdown-item" id="countdown-days">00</div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-item" id="countdown-hours">00</div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-item" id="countdown-minutes">00</div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-item" id="countdown-seconds">00</div>
+            </div>
+            <i class="fa-sharp fa-solid fa-bolt fa-beat-fade"></i>
+            <h2>FLASH SALE</h2>
+        </div>
+        <div class="sale-content">
+            <div class="sale-slick-slider">
+                @foreach (var item in SaleDetails)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.Product.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@(item.Product.ImgSrc != null ? item.Product.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.Product.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.Product.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.Product.ProductName
+                                </div>
+                            </a>
+                            @{ double discountPercent = 0; }
+                            <div class="product-original-price">
+                                @if (item.Product.Cost > item.Product.Price)
+                                {
+                                    decimal cost = Convert.ToDecimal(item.Product.Cost);
+
+                                    discountPercent = ((Convert.ToDouble(item.Product.Cost) - Convert.ToDouble(item.Product.Price))
+                                        / Convert.ToDouble(item.Product.Cost)) * 100;
+
+                                    <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price = Convert.ToDecimal(item.Product.Price);
+
+                                }
+
+                                <span>@price.ToString("#,###", ViewBag.cul)đ</span>
+
+                                @if (discountPercent > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.Product.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.Product.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (ViewBag.Banner1.Count > 0)
+{
+    <section class="banner-2">
+        @foreach (var banner in ViewBag.Banner1)
+        {
+            <div class="banner-2-content">
+                <a href="@banner.BannerLink">
+                    <img src="@banner.BannerImgSrc" alt="">
+                </a>
+            </div>
+        }
+    </section>
+}
+
+
+<section class="section-categories">
+    <div class="section-header">
+        <h2 class="section-title">
+            <a href="/collections/all">Danh mục sản phẩm</a>
+        </h2>
+        <div class="section-header-link">
+            <a href="/collections/all">Xem tất cả</a>
+        </div>
+    </div>
+    <div class="section-categories-items">
+        <div class="section-categories-row">
+            @foreach (var category in ViewBag.Categories)
+            {
+                <div class="category-item-box">
+                    <a href="/collections/@category.CateID" class="category-item-link">
+                        <div class="category-item">
+                            <div class="category-item-image">
+                                <img src="@category.ImgSrc" alt="" class="category-item-img">
+                            </div>
+                            <span class="category-item-name">
+                                @category.CateName
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@if (ViewBag.LaptopGamingOSD.Count > 0)
+{
+    <section class="section-collection">
+        <div class="section-header">
+            <div class="section-header-box">
+                <h2 class="section-title">
+                    <a href="/collections/laptop-gaming">Laptop gaming nổi bậc</a>
+                </h2>
+                <div class="section-sub-header-box">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Miễn phí giao hàng</span>
+                </div>
+            </div>
+            <div class="section-header-link">
+                <a href="/collections/laptop-gaming">Xem tất cả</a>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="collection-slick-slider">
+                @foreach (var item in ViewBag.LaptopGamingOSD)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.ProductName
+                                </div>
+                            </a>
+
+                            @{ double discountPercent = 0; }
+                            <div class="product-original-price">
+                                @if (item.Cost > item.Price)
+                                {
+                                    decimal cost = Convert.ToDecimal(item.Cost);
+
+                                    discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                        / Convert.ToDouble(item.Cost)) * 100;
+                                    <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price = Convert.ToDecimal(item.Price);
+                                }
+                                <span>@price.ToString("##,###", ViewBag.cul)đ</span>
+                                @if (discountPercent > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (ViewBag.LaptopOSD.Count > 0)
+{
+    <section class="section-collection">
+        <div class="section-header">
+            <div class="section-header-box">
+                <h2 class="section-title">
+                    <a href="/collections/laptop">Laptop văn phòng - đồ họa nổi bậc</a>
+                </h2>
+                <div class="section-sub-header-box">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Miễn phí giao hàng</span>
+                </div>
+            </div>
+            <div class="section-header-link">
+                <a href="/collections/laptop">Xem tất cả</a>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="collection-slick-slider">
+                @foreach (var item in ViewBag.LaptopOSD)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.ProductName
+                                </div>
+                            </a>
+
+                            @{ double discountPercent = 0; }
+                            <div class="product-original-price">
+                                @if (item.Cost > item.Price)
+                                {
+                                    decimal cost = Convert.ToDecimal(item.Cost);
+
+                                    discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                        / Convert.ToDouble(item.Cost)) * 100;
+                                    <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price = Convert.ToDecimal(item.Price);
+                                }
+                                <span>@price.ToString("##,###", ViewBag.cul)đ</span>
+                                @if (discountPercent > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (ViewBag.MouseOSD.Count > 0)
+{
+    <section class="section-collection">
+        <div class="section-header">
+            <div class="section-header-box">
+                <h2 class="section-title">
+                    <a href="/collections/chuot">Chuột nổi bậc</a>
+                </h2>
+                <div class="section-sub-header-box">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Miễn phí giao hàng</span>
+                </div>
+            </div>
+            <div class="section-header-link">
+                <a href="/collections/chuot">Xem tất cả</a>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="collection-slick-slider">
+                @foreach (var item in ViewBag.MouseOSD)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.ProductName
+                                </div>
+                            </a>
+
+                            @{ double discountPercent = 0; }
+                            <div class="product-original-price">
+                                @if (item.Cost > item.Price)
+                                {
+                                    decimal cost = Convert.ToDecimal(item.Cost);
+
+                                    discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                        / Convert.ToDouble(item.Cost)) * 100;
+                                    <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price = Convert.ToDecimal(item.Price);
+                                }
+                                <span>@price.ToString("##,###", ViewBag.cul)đ</span>
+                                @if (discountPercent > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (ViewBag.MonitorOSD.Count > 0)
+{
+    <section class="section-collection">
+        <div class="section-header">
+            <div class="section-header-box">
+                <h2 class="section-title">
+                    <a href="/collections/man-hinh">Màn hình nổi bậc</a>
+                </h2>
+                <div class="section-sub-header-box">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Miễn phí giao hàng</span>
+                </div>
+            </div>
+            <div class="section-header-link">
+                <a href="/collections/man-hinh">Xem tất cả</a>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="collection-slick-slider">
+                @foreach (var item in ViewBag.MonitorOSD)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.ProductName
+                                </div>
+                            </a>
+
+                            @{ double discountPercent = 0; }
+                            <div class="product-original-price">
+                                @if (item.Cost > item.Price)
+                                {
+                                    decimal cost = Convert.ToDecimal(item.Cost);
+
+                                    discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                        / Convert.ToDouble(item.Cost)) * 100;
+                                    <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price = Convert.ToDecimal(item.Price);
+                                }
+                                <span>@price.ToString("##,###", ViewBag.cul)đ</span>
+                                @if (discountPercent > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+@if (ViewBag.KeyboardOSD.Count > 0)
+{
+    <section class="section-collection">
+        <div class="section-header">
+            <div class="section-header-box">
+                <h2 class="section-title">
+                    <a href="/collections/ban-phim">Bàn phím nổi bậc</a>
+                </h2>
+                <div class="section-sub-header-box">
+                    <i class="fa-solid fa-truck"></i>
+                    <span>Miễn phí giao hàng</span>
+                </div>
+            </div>
+            <div class="section-header-link">
+                <a href="/collections/ban-phim">Xem tất cả</a>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="collection-slick-slider">
+                @foreach (var item in ViewBag.KeyboardOSD)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.ProductName
+                                </div>
+                            </a>
+
+                            @{ double discountPercent = 0; }
+                            <div class="product-original-price">
+                                @if (item.Cost > item.Price)
+                                {
+                                    decimal cost = Convert.ToDecimal(item.Cost);
+
+                                    discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                        / Convert.ToDouble(item.Cost)) * 100;
+                                    <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price = Convert.ToDecimal(item.Price);
+                                }
+                                <span>@price.ToString("##,###", ViewBag.cul)đ</span>
+                                @if (discountPercent > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
+<section class="section-brands">
+    <div class="section-header">
+        <h2 class="section-title">
+            <i class="fa-solid fa-circle-check"></i>
+            <a href="#">Thương hiệu nổi bật</a>
+        </h2>
+    </div>
+    <div class="brand-collections">
+        @foreach (var brand in ViewBag.Brands)
+        {
+            <div class="brand-item">
+                <a href="#">
+                    <img src="@brand.BrandImgSrc" alt="@brand.BrandName Logo">
+                </a>
+            </div>
+        }
+    </div>
+</section>

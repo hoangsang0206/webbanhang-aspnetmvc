@@ -1,0 +1,33 @@
+﻿@model STech_Web.ViewModel.LoginVM
+
+<div class="login position-fixed">
+    <div class="form-container position-relative">
+        <div class="close-form close-login position-absolute">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h3 class="form-header text-center m-0">ĐĂNG NHẬP</h3>
+        <div class="form-error">
+            
+        </div>
+        <form action="#" method="post" class="login-form">
+            <div class="form-input-box position-relative d-flex align-items-center">
+                @Html.TextBoxFor(row => row.Username, new { @class = "form-input", autocomplete = true })
+                @Html.LabelFor(row => row.Username, "Tên đăng nhập", new { @class = "input-label position-absolute" })
+            </div>
+            @Html.ValidationMessageFor(row => row.Username)
+            <div class="form-input-box position-relative d-flex align-items-center">
+                @Html.PasswordFor(row => row.Password, new { @class = "form-input" })
+                @Html.LabelFor(row => row.Password, "Mật khẩu", new { @class = "input-label position-absolute" })
+            </div>
+            @Html.ValidationMessageFor(row => row.Password)
+            <div class="forgot-password-box text-end">
+                <a href="#" class="forgot-password-link">Quên mật khẩu ?</a>
+            </div>
+            <button type="submit" class="form-submit-btn">ĐĂNG NHẬP</button>
+            <div class="form-bottom text-center">
+                <span>Bạn chưa có tài khoản?</span>
+                <a href="#" class="register-now-link">Đăng ký ngay</a>
+            </div>
+        </form>
+    </div>
+</div>

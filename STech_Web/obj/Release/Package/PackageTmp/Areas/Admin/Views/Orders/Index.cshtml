@@ -1,0 +1,306 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+}
+
+@model List<STech_Web.Models.Order> 
+
+<section class="orders-page position-relative">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+    <h2 class="title">Quản lý đơn hàng</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Quản lý đơn hàng
+            </li>
+        </ul>
+    </div>
+    <div class="orders-page-main mb-4">
+        <div class="action-box orders-action d-flex flex-wrap">
+            <button class="add-order-btn">
+                <i class="fa-regular fa-square-plus action-btn-icon"></i>
+                Tạo đơn hàng
+            </button>
+            <div class="orders-action-notice"></div>
+        </div>
+        <div class="orders-page-content mt-3">
+            <div class="orders-search-wrapper d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <form action="#" method="post" class="search-orders d-flex">
+                    <div class="search-by">
+                        <div class="dropdown-search position-relative">
+                            <div class="dropdown-search-main d-flex align-items-center justify-content-between">
+                                <span class="dropdown-search-selected" data-search="order-id">Mã đơn hàng</span>
+                                <i class="fa-solid fa-chevron-down ms-2"></i>
+                            </div>
+                            <div class="dropdown-search-list">
+                                <ul>
+                                    <li class="order-search-value" data-search-select="order-id">Mã đơn hàng</li>
+                                    <li class="order-search-value" data-search-select="customer-phone">SĐT khách hàng</li>
+                                    <li class="order-search-value" data-search-select="customer-name">Tên khách hàng</li>
+                                    <li class="order-search-value" data-search-select="order-date">Ngày/tháng/năm</li>
+                                    <li class="order-search-value" data-search-select="order-month">Tháng/năm</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" id="search-orders" name="search-orders" placeholder="Tìm kiếm" required autocomplete="off" />
+                    <button type="submit" class="submit-orders-search">
+                        <i class='bx bx-search'></i>
+                    </button>
+                </form>
+                <div class="get-orders-by-date-range d-flex flex-wrap align-items-center gap-2">
+                    <span>Từ</span>
+                    <div class="date-input">
+                        <input type="date" id="date-from" name="date-from" value="" />
+                    </div>
+                    <span>đến</span>
+                    <div class="date-input">
+                        <input type="date" id="date-to" name="date-to" value="" />
+                    </div>
+                    <button class="search-by-date-btn">
+                        <i class='bx bx-search'></i>
+                    </button>
+                </div>
+                <button class="page-btn get-all-order">Tất cả đơn hàng</button>
+            </div>
+
+            <div class="order-list">
+                <table class="table">
+                    <tr>
+                        <th>Mã ĐH</th>
+                        <th>Tên khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+            <div class="orders-search-wrapper mt-3 d-flex flex-wrap align-items-center justify-content-between gap-2">
+                <div>
+                    <h5 class="m-0 p-0">Đơn hàng chờ xác nhận</h5>
+                </div>
+                <div class="d-flex flex-wrap align-items-center justify-content-start gap-2">
+                    <button class="page-btn get-accept-order">Đã xác nhận</button>
+                    <button class="page-btn get-refuse-order">Đã hủy</button>
+                    <button class="page-btn get-paid-order">Đã thanh toán</button>
+                    <button class="page-btn get-notpaid-order">Chưa thanh toán</button>
+                    <button class="page-btn reload-orders">Tải lại</button>
+                </div>
+            </div>
+            <div class="order-waiting-list">
+                <table class="table">
+                    <tr>
+                        <th>Mã ĐH</th>
+                        <th>Tên khách hàng</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+                    @foreach(var order in Model)
+                    {
+                        var statusClass = "order-success";
+                        var buttonAccept = "&nbsp;<button class='order-btn accept-paid' data-accept-paid="+order.OrderID+"><i class='bx bx-check'></i></button>";
+                        if (order.PaymentStatus == "Thanh toán thất bại") { statusClass = "order-failed"; }
+                        else if (order.PaymentStatus == "Chờ thanh toán") { statusClass = "order-waiting"; }
+                        <tr>
+                            <td><div class="order-id">@order.OrderID</div></td>
+                            <td><div class="cus-name">@order.Customer.CustomerName</div></td>
+                            <td><div class="order-date">@order.OrderDate</div></td>
+                            <td><div class="total-payment">@order.TotalPaymentAmout.ToString("##,###", ViewBag.cul)đ</div></td>
+                            <td><div class="order-pstatus d-flex @statusClass">@order.PaymentStatus @(order.PaymentStatus == "Chờ thanh toán" ? Html.Raw(buttonAccept) : Html.Raw(""))</div></td>
+                            @if (order.Status == "Chờ xác nhận")
+                            {
+                                <td>
+                                    <div class="order-status">
+                                        <button class="order-btn order-status-accept" data-accept-order="@order.OrderID">Xác nhận</button>
+                                        <button class="order-btn order-status-refuse" data-refuse-order="@order.OrderID">Hủy</button>
+                                    </div>
+                                </td>
+                            }
+                            else if (order.Status == "Đã xác nhận")
+                            {
+                                <td><div class="order-status order-success">@order.Status</div></td>
+                            }
+                            else if (order.Status == "Đã hủy")
+                            {
+                                <td><div class="order-status order-failed">@order.Status</div></td>
+                            }
+                            <td>
+                                <div class="order-button-box d-flex justify-content-end flex-wrap gap-2">
+                                    <button class="order-btn order-detail-btn" data-detail-order="@order.OrderID">Chi tiết</button>
+                                    <button class="order-btn delete-order-btn" data-del-order="@order.OrderID">Xóa</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="order-infomation-wrapper">
+    <div class="order-infomation-box position-relative">
+        <div class="close-order-info">
+            <i class='bx bx-x'></i>
+        </div>
+        <h4 class="text-center mt-3 mb-4">Chi tiết đơn hàng</h4>
+        <div class="form-box-header">
+            <h5 class="order-info-header form-header-text">Đơn hàng - </h5>
+        </div>
+        <div class="order-infomation">
+            <div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Ngày đặt:</span>
+                    <p class="order-info-date"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Phương thức thanh toán:</span>
+                    <p class="order-info-payment"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Trạng thái:</span>
+                    <p class="order-info-status"></p>
+                </div>
+            </div>
+            <div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Trạng thái thanh toán:</span>
+                    <p class="order-info-pstatus"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Cách thức vận chuyển:</span>
+                    <p class="order-info-ship">Nhận tại cửa hàng</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Ghi chú:</span>
+                    <p class="order-info-note"></p>
+                </div>
+            </div>
+            <div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Tổng tiền:</span>
+                    <p class="order-info-total"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Phí vận chuyển:</span>
+                    <p class="order-info-ship-total"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Tồng tiền cần thanh toán:</span>
+                    <p class="order-info-totalpay fw-bold"></p>
+                </div>
+            </div>
+        </div>
+        <div class="form-box-header">
+            <h5 class="mt-3 order-info-cus form-header-text">Thông tin khác hàng</h5>
+        </div>
+        <div class="order-cus-info">
+            <div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Mã KH:</span>
+                    <p class="order-cus-id"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Tên KH:</span>
+                    <p class="order-cus-name"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Số ĐT:</span>
+                    <p class="order-cus-phone"></p>
+                </div>
+            </div>
+            <div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Email:</span>
+                    <p class="order-cus-email"></p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Địa chỉ:</span>
+                    <p class="order-cus-address"></p>
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div class="form-box-header">
+            <h5 class="mt-3 order-info-cnt form-header-text">Số sản phẩm - </h5>
+        </div>
+        <div class="order-products-info my-3">
+            <table class="table">
+                <tr>
+                    <th>Mã sản phẩm</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá bán</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+                <tr></tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="delete-order-confirm">
+    <div class="delete-confirm-box d-flex flex-column align-items-center">
+        <i class="fa-regular fa-circle-question"></i>
+        <span>Xóa đơn hàng này ?</span>
+        <div class="delete-button-box">
+            <button class="cancel-delete">
+                Hủy
+            </button>
+            <button class="confirm-delete-order">
+                Xóa
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="complete-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Thêm thành công.</span>
+        <button>OK</button>
+    </div>
+</div>
+
+<div class="complete-update-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Sửa thành công.</span>
+        <button>OK</button>
+    </div>
+</div>
+
+<div class="complete-delete-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Xóa thành công.</span>
+        <button>OK</button>
+    </div>
+</div>
+
+<div class="payment-acception-confirm">
+    <div class="form-box payment-acception d-flex flex-column align-items-center">
+        <i class="fa-regular fa-circle-question"></i>
+        <span>Xác nhận đơn hàng này đã thanh toán ?</span>
+        <div class="accept-paid-btn-box">
+            <button class="cancel-acception">
+                Hủy
+            </button>
+            <button class="confirm-acception">
+                Xác nhận
+            </button>
+        </div>
+    </div>
+</div>

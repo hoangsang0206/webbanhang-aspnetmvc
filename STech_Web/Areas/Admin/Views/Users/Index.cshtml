@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý tài khoản";
+}
+
+@model List<STech_Web.Identity.AppUser>
+
+<section class="users position-relative mb-4">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+
+    <h2 class="title">Quản lý tài khoản</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Quản lý tài khoản
+            </li>
+        </ul>
+    </div>
+    <div class="users-main-page">
+        <div class="users-main-header mb-3">
+            <button class="page-btn create-users-btn d-flex align-items-center gap-2">
+                <i class="fa-regular fa-square-plus"></i>
+                Tạo tài khoản
+            </button>
+        </div>
+        <div class="users-main-content">
+            <table class="table">
+                <tr>
+                    <th>STT</th>
+                    <th>Tên đăng nhập</th>
+                    <th>Họ tên</th>
+                    <th>Số ĐT</th>
+                    <th></th>
+                </tr>
+                @{ int i = 1; }
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@user.UserName</td>
+                        <td>@user.UserFullName</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>
+                            <div class="user-btn-box d-flex gap-2 justify-content-end">
+                                <button class="user-btn user-detail-btn" data-user-detail="@user.UserName">Chi tiết</button>
+                                <button class="user-btn user-delete-btn" data-user-delete="@user.UserName">Xóa</button>
+                            </div>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </table>
+        </div>
+    </div>
+
+    <div class="user-detail-wrapper">
+        <form action="/admin/users/update" method="post" class="user-detail-box position-relative">
+            <div class="close-form close-user-detail position-absolute">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div>
+                <h4 class="text-center mb-4">Thông tin tài khoản</h4>
+                <div class="d-flex flex-column">
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                        <label for="userName">Tên đăng nhập</label>
+                        <input type="text" name="userName" id="userName" value="" class="form-add-input" readonly />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                        <label for="UserFullName">Họ tên</label>
+                        <input type="text" name="UserFullName" id="UserFullName" value="" class="form-add-input" />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                        <label for="PhoneNumber">Số ĐT</label>
+                        <input type="text" name="PhoneNumber" id="PhoneNumber" value="" class="form-add-input" />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                        <label for="Email">Email</label>
+                        <input type="email" name="Email" id="Email" value="" class="form-add-input" />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                        <label for="Address">Địa chỉ</label>
+                        <input type="text" name="Address" id="Address" value="" class="form-add-input" />
+                    </div>
+                    <div class="d-flex align-items-center gap-3 my-2">
+                        <span class="me-4">Giới tính</span>
+                        <div class="d-flex align-items-center gap-3 ms-5">
+                            <div class="d-flex align-items-center gap-2">
+                                <label for="usergender-m">Nam</label>
+                                <input type="radio" name="Gender" id="usergender-m" value="Nam" />
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <label for="usergender-fm">Nữ</label>
+                                <input type="radio" name="Gender" id="usergender-fm" value="Nữ" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                        <label for="DOB">Ngày sinh</label>
+                        <input type="date" name="DOB" id="DOB" value="" class="form-add-input" />
+                    </div>
+
+                    <div class="d-flex align-items-center gap-4 my-2">
+                        <label for="userimg-upload">Hình ảnh hồ sơ</label>
+                        <div class="userimg-box">
+                            <img id="userimg" src="#" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-error"></div>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="user-btn update-user">Sửa thông tin</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="create-account">
+        <form class="create-account-box position-relative">
+            <div class="close-form close-create-account position-absolute">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h4 class="text-center mb-4">Tạo mới  tài khoản</h4>
+            <div class="d-flex flex-column">
+                <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                    <label for="create-userName">Tên đăng nhập</label>
+                    <input type="text" name="create-userName" id="create-userName" value="" class="form-add-input" required />
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                    <label for="create-password">Mật khẩu</label>
+                    <input type="password" name="create-password" id="create-password" value="" class="form-add-input" required />
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                    <label for="create-repassword">Xác nhận mật khẩu</label>
+                    <input type="password" name="create-repassword" id="create-repassword" value="" class="form-add-input" required />
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-3 my-2">
+                    <label for="create-Email">Email</label>
+                    <input type="email" name="create-Email" id="create-Email" value="" class="form-add-input" required />
+                </div>
+            </div>
+            <div class="form-error"></div>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="user-btn create-user">Tạo tài khoản</button>
+                <button type="reset" class="form-submit-reset ms-2">Huỷ</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="delete-user-confirm-box">
+        <div class="delete-user-confirm d-flex flex-column align-items-center">
+            <i class="fa-regular fa-circle-question"></i>
+            <span>Xóa tài khoản này?</span>
+            <div class="delete-user-confirm-btn-box d-flex justify-content-between">
+                <button class="delete-user-confirm-no">Hủy</button>
+                <button class="delete-user-confirm-yes">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="complete-delete-notice">
+        <div class="complete-notice-box d-flex flex-column align-items-center">
+            <i class='bx bx-check-circle bx-tada'></i>
+            <span>Xóa thành công.</span>
+            <button>OK</button>
+        </div>
+    </div>
+
+    <div class="fail-delete-notice">
+        <div class="fail-notice-box d-flex flex-column align-items-center">
+            <i class='bx bxs-error-circle'></i>
+            <span>Xóa thất bại.</span>
+            <button>OK</button>
+        </div>
+    </div>
+
+    <div class="complete-create-notice">
+        <div class="complete-notice-box d-flex flex-column align-items-center">
+            <i class='bx bx-check-circle bx-tada'></i>
+            <span>Thêm tài khoản thành công.</span>
+            <button>OK</button>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,136 @@
+﻿@model List<STech_Web.Models.OrderDetail>
+@{
+    ViewBag.Title = "Chi tiết đơn hàng - " + ViewBag.Order.OrderID;
+}
+
+<section class="breadcrumb">
+    <ul class="breadcrumb-list d-flex">
+        @foreach (var item in ViewBag.Breadcrumb)
+        {
+            <li class="breadcrumb-item">
+                @if (item.BreadcrumbLink == "")
+                {
+                    <span>@item.BreadcrumbName</span>
+                }
+                else
+                {
+                    <a href="@item.BreadcrumbLink">
+                        @item.BreadcrumbName
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</section>
+
+<section class="order-action d-flex gap-3 mb-2">
+    <button class="print-order" onclick="window.open('/order/printorder?orderID=@ViewBag.Order.OrderID', '_blank')">
+        <i class="fa-solid fa-print me-1"></i>
+        <span>In hóa đơn</span>
+    </button>
+    @if (ViewBag.Order.Status == "Chờ xác nhận")
+    {
+        <button class="delete-order" onclick="window.location.href='/order/delete?orderID=@ViewBag.Order.OrderID'">
+            <i class="fa-solid fa-print me-1"></i>
+            <span>Hủy đơn hàng</span>
+        </button>
+    }
+</section>
+
+<section class="order-detail">
+    <div class="order-info-wrapper d-flex gap-3">
+        <div class="order-info">
+            <div class="detail-header">
+                <h5>Thông tin đơn hàng - @ViewBag.Order.OrderID</h5>
+            </div>
+            <hr />
+            <div class="order-info-box">
+                <div class="order-info-item d-flex gap-2">
+                    <span>Mã đơn hàng: </span>
+                    <p>@ViewBag.Order.OrderID</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Ngày đặt hàng: </span>
+                    <p>@ViewBag.Order.OrderDate</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Phương thức vận chuyển: </span>
+                    <p>@( ViewBag.Order.ShipMethod == "COD" ? "Giao hàng tận nơi" : "Nhận tại cửa hàng" )</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Cách thức thanh toán: </span>
+                    <p>@ViewBag.Order.PaymentMethod</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Ghi chú: </span>
+                    <p>@ViewBag.Order.Note</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Tổng tiền: </span>
+                    <p>@ViewBag.Order.TotalPaymentAmout.ToString("##,###", ViewBag.cul)đ</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>ĐC nhận hàng: </span>
+                    <p>@ViewBag.Order.ShipAddress</p>
+                </div>
+            </div>
+        </div>
+        <div class="order-info">
+            <div class="detail-header">
+                <h5>Thông tin khác hàng</h5>
+            </div>
+            <hr />
+            <div class="order-info-box">
+                <div class="order-info-item d-flex gap-2">
+                    <span>Mã khách hàng: </span>
+                    <p>@ViewBag.Customer.CustomerID</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Họ tên: </span>
+                    <p>@ViewBag.Customer.CustomerName</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Số điện thoại: </span>
+                    <p>@ViewBag.Customer.Phone</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Email: </span>
+                    <p>@ViewBag.Customer.Email</p>
+                </div>
+                <div class="order-info-item d-flex gap-2">
+                    <span>Địa chỉ: </span>
+                    <p>@ViewBag.Customer.Address</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="order-detail-wrapper">
+        <div class="order-detail-box">
+            <div class="detail-header">
+                <h5>Chi tiết đơn hàng</h5>
+            </div>
+            <hr />
+            <div class="order-detail-items">
+                @foreach(var item in Model)
+                {
+                    <div class="order-detail-product d-flex gap-3 mt-3">
+                        <div class="order-product-qty d-flex mt-3">
+                            @item.Quantity x
+                        </div>
+                        <div class="order-product-img">
+                            <img src="@(item.Product.ImgSrc != null ? item.Product.ImgSrc : "/images/no-image.jpg")" alt="" />
+                        </div>
+                        <div class="order-product-box d-flex flex-column gap-2">
+                            <div class="order-product-name">
+                                <a href="/product/@item.Product.ProductID">@item.Product.ProductName</a>
+                            </div>
+                            <div class="order-product-price">
+                                <h6>@Convert.ToDecimal(item.Price).ToString("##,###", ViewBag.cul)đ</h6>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>

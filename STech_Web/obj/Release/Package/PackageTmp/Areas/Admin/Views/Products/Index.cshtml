@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý sản phẩm";
+}
+
+<div class="products position-relative">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+    <h2 class="title">Sản phẩm</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Sản phẩm
+            </li>
+        </ul>
+    </div>
+
+    <div class="products-content">
+        <div class="action-box products-action d-flex">
+            <button class="add-product-btn">
+                <i class="fa-regular fa-square-plus action-btn-icon"></i>
+                Thêm sản phẩm
+            </button>
+            <div class="products-action-notice"></div>
+        </div>
+
+        <div class="products-content-box">
+            <div class="product-content-header d-flex justify-content-between gap-2 flex-wrap">
+                <form action="#" method="post" class="search-products d-flex">
+                    <input type="text" id="search" name="search" placeholder="Nhập tên sản phẩm" required autocomplete="off" />
+                    <button type="submit" class="submit-search">
+                        <i class='bx bx-search'></i>
+                    </button>
+                </form>
+
+                <select class="get-product-by-cate" id="cateID">
+                    <option value="" selected>SP theo danh mục</option>
+                    @foreach (var cate in ViewBag.Categories)
+                    {
+                        <option value="@cate.CateID">@cate.CateName</option>
+                    }
+                </select>
+
+                <select class="get-product-by-brand" id="brandID">
+                    <option value="" selected>SP theo hãng</option>
+                    @foreach (var brand in ViewBag.Brands)
+                    {
+                        <option value="@brand.BrandID">@brand.BrandName</option>
+                    }
+                </select>
+
+                <button class="page-btn get-all-product">Tất cả sản phẩm</button>
+
+                <button class="page-btn get-out-of-stock">Sản phẩm hết hàng</button>
+
+                <button class="reload-products">
+                    Bỏ chọn
+                </button>
+
+            </div>
+
+            <hr />
+
+            <div class="total-result">
+
+            </div>
+
+            <div class="product-list">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@{ Html.RenderPartial("ProductActionPartial"); }

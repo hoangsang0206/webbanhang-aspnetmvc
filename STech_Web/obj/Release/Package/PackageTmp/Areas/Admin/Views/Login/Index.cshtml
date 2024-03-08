@@ -1,0 +1,21 @@
+﻿@{ 
+    ViewBag.Title = "Đăng nhập - Admin";
+}
+
+<div class="login-form-box">
+    <h3 class="form-header text-center m-0">ĐĂNG NHẬP</h3>
+    <div class="form-error"></div>
+
+    <form action="#" method="post" class="admin-login-form">
+        <div class="form-input-box position-relative d-flex align-items-center">
+            <input type="text" id="admin-username" name="Username" value="" class="form-input" required autocomplete="off" />
+            <label for="admin-username" class="input-label position-absolute">Tên đăng nhập</label>
+        </div>
+        <div class="form-input-box position-relative d-flex align-items-center">
+            <input type="password" id="admin-password" name="Password" value="" class="form-input" required />
+            <label for="admin-password" class="input-label position-absolute">Mật khẩu</label>
+        </div>
+        <a href="/" class="my-2 text-decoration-none">Về trang bán hàng</a>
+        <button type="submit" class="form-submit-btn">ĐĂNG NHẬP</button>
+    </form>
+</div>

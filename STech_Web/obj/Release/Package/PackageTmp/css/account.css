@@ -1,0 +1,622 @@
+﻿.account-wrapper {
+    column-gap: 1rem;  
+}
+
+.account-left-side {
+    background: #ffffff;
+    border-radius: 0.2rem;
+    width: 26%;
+}
+
+.account-right-side {
+    position: relative;
+    width: calc(74% - 1rem);
+}
+
+.account-right-side * {
+    font-size: 1.1rem;
+}
+
+.account-left-side hr {
+    margin: 1rem 0;
+}
+
+.account-name {
+    padding: 1.4rem 1.6rem 0 1.6rem;
+    overflow: hidden;
+}
+
+.account-name span {
+    white-space: nowrap;
+}
+
+.account-nav {
+    padding: 0 1.6rem 1rem 1.6rem;
+}
+
+.account-name span {
+    font-size: 1.7rem;
+    font-weight: 500;
+}
+
+.user-image-box {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    object-position: center;
+}
+
+.user-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;  
+}
+
+.user-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-img-btn {
+    border: none;
+    border-radius: 50%;
+    background: #dddddd;
+    width: 1.5rem;
+    height: 1.5rem;
+    bottom: 0;
+    right: 0;
+    display: grid;
+    place-items: center;
+}
+
+.upload-img-btn i {
+    font-size: 1.1rem;
+}
+
+.upload-user-image {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000075;
+    display: grid;
+    visibility: hidden;
+    place-items: center;
+    z-index: 50;
+}
+
+.upload-user-image.show {
+    visibility: visible;
+}
+
+.close-upload-frm {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    cursor: pointer;
+}
+
+.close-upload-frm i {
+    font-size: 2rem;
+}
+
+.upload-form-box {
+    width: 30rem;
+    padding: 2.5rem 3rem;
+    border-radius: 0.2rem;
+    background: #ffffff;
+    transform: scale(0);
+    opacity: 0;
+    transition: var(--trans-all-03);
+}
+
+.upload-form-box.show {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.upload-user-img {
+    border: 2px dashed #0652dd;
+    border-radius: 0.3rem;
+    padding: 2.5rem 1.5rem;
+    color: #3990e6;
+    cursor: pointer;
+}
+
+.upload-user-img.dragenter {
+    border-color: #7abafa;
+    color: #7abafa;
+}
+
+.upload-user-img * {
+    pointer-events: none;
+}
+
+.upload-user-img i {
+    font-size: 2.2rem;
+}
+
+.upload-user-img span {
+    font-size: 1.1rem;
+}
+
+.upload-user-img.img-uploaded {
+    border: none;
+    overflow: hidden;
+    padding: 0;
+    aspect-ratio: 1;
+}
+
+.upload-user-img.img-uploaded img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-frm-notice {
+    border-radius: 0.3rem;
+    padding: 0.5rem 0.8rem;
+    display: none;
+}
+
+.upload-frm-notice i {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.upload-frm-notice.success {
+    background: #75fd5b98;
+}
+
+.upload-frm-notice.success * {
+    color: #10b605;
+}
+
+.upload-frm-notice.failed {
+    background: #fff3cd;
+    color: #000000;
+}
+
+.upload-frm-notice.failed i {
+    color: #e30019;
+}
+
+.upload-progress-bar {
+    border-radius: 0.3rem;
+    background: #E9F0FF;
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    display: none;
+}
+
+.upload-progress-bar i {
+    font-size: 2rem;
+    color: #3990e6;
+}
+
+.progress-bar {
+    width: 90%;
+}
+
+.progress-bar .bar {
+    height: 5px;
+    background: #437ce5;
+    border-radius: 2rem;
+}
+
+.progress-percent {
+    font-size: 0.88rem;
+    color: #3990e6;
+    width: 2.5rem;
+}
+
+.account-nav-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.account-nav-list-item {
+    padding: 1rem 0;
+}
+
+.account-nav-list-item a.activeNav {
+    color: var(--primary-color);
+}
+
+.account-nav-list-item a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.account-nav-list-item p {
+    cursor: pointer;
+}
+
+.account-nav-list-item a:hover,
+.account-nav-list-item p:hover{
+    color: var(--primary-color);
+}
+
+.account-nav-list-item span {
+    font-size: 1.1rem;
+}
+
+.account-list-icon {
+    font-size: 1.3rem;
+    margin-right: 0.6rem;
+}
+
+.update-error {
+    height: 1rem;
+}
+
+.account-right-box {
+    width: 100%;
+    border-radius: 0.2rem;
+    padding: 1.5rem 2rem;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.account-right-box.current {
+    visibility: visible;
+    opacity: 1;
+}
+
+.r-side-header {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.user-form-box {
+    padding: 0.5rem 0;
+    width: 80%;
+    column-gap: 2.5rem;
+}
+
+.user-input-label {
+    width: 8rem;
+}
+
+.user-form-box input[type="text"],
+.user-form-box input[type="email"],
+.user-form-box input[type="password"] {
+    border: 1px solid #cfcfcf;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    outline: none;
+    width: 70%;
+}
+
+.user-form-box input[type="date"] {
+    border: 1px solid #cfcfcf;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    outline: none;
+    width: 35%;
+}
+
+.input-radio label {
+    margin-left: 0.5rem;
+}
+
+#Gender2 {
+    margin-left: 2rem;
+}
+
+.user-form-submit {
+    padding: 0.5rem 1.3rem;
+    width: 10rem;
+    border: none;
+    outline: none;
+    background: var(--primary-color);
+    border-radius: 0.3rem;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    display: grid;
+    place-items: center;
+}
+
+.user-form-submit:hover {
+    outline: 2px solid var(--primary-color-hover);
+}
+
+.order-header-list {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    overflow-x: scroll;
+}
+
+.order-header-list li {
+    white-space: nowrap;
+    color: var(--content-color-black);
+    padding: 0.4rem 1.7rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.order-header-list li::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--trans-all-03);
+}
+
+.order-header-list li:hover::after {
+    transform: scale(1);
+}
+
+.order-header-list li.active::after {
+    transform: scale(1);
+}
+
+.order-search-box {
+    padding: 0.8rem 0;
+}
+
+.order-search-form {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    gap:0.3em;
+}
+
+#order-search {
+    width: 80%;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid #cfcfcf;
+    border-radius: 0.2rem;
+    padding: 0.4rem 1rem;
+}
+
+#order-search:focus {
+    outline: 1px solid #000000;
+}
+
+.order-search-btn {
+    border-radius: 0.2rem;
+    background: var(--primary-color);
+    border: none;
+    width: 3rem;
+    color: var(--content-color-white);
+}
+
+.order-search-btn:hover {
+    outline: 2px solid var(--primary-color-hover);
+}
+
+.order-empty {
+    height: 15rem;
+}
+
+.order-list {
+    max-height: 25rem;
+    overflow-y: scroll;
+}
+
+.order-list table td,
+.order-list table th {
+    white-space: nowrap;
+    padding-left: 0.5rem;
+}
+
+.order-total {
+    font-weight: 600;
+}
+
+.order-status {
+    padding: 0;
+}
+
+.order-pstatus.order-success,
+.order-status.order-success {
+    color: #44bd32;
+}
+
+.order-pstatus.order-failed,
+.order-status.order-failed {
+    color: #e30019;
+}
+
+.order-pstatus.order-waiting,
+.order-status.order-waiting {
+    color: #ff6a00;
+}
+
+/*Order detail page ----------------------*/
+.print-order {
+    outline: none;
+    border: none;
+    border-radius: 0.2rem;
+    background: var(--primary-color);
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+}
+
+.print-order:hover {
+    outline: 2px solid var(--primary-color-hover);
+}
+
+.delete-order {
+    outline: none;
+    border: none;
+    border-radius: 0.2rem;
+    background: var(--header-btn-background);
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+}
+
+.order-info {
+    padding: 1rem 1.5rem;
+    background: #ffffff;
+    border-radius: 0.2rem;
+    width: 50%;
+}
+
+.order-detail * {
+    font-size: 1rem;
+}
+
+.detail-header h5 {
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.order-info-item span {
+    font-weight: 500;
+    white-space: nowrap;
+    margin-bottom: 0.7rem;
+}
+
+.order-info-item p {
+    margin: 0;
+}
+
+.order-detail-box {
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    background: #ffffff;
+    border-radius: 0.2rem;
+}
+
+.order-product-qty {
+    width: 4rem;
+    font-size: 1.1rem;
+}
+
+.order-product-img {
+    width: 7rem;
+}
+
+.order-product-img img {
+    width: 100%;
+}
+
+.order-product-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.order-product-name a {
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #000000;
+}
+
+.order-product-name a:hover {
+    color: var(--primary-color);
+}
+
+.order-product-price h6 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+/*---Responsive --------------------------------------------------------------*/
+/* For mobile (width < 768px) ---------------------------------------------*/
+@media screen and (max-width: 767px) {
+    .account-wrapper {
+        flex-direction: column-reverse;
+        row-gap: 1rem;
+    }
+
+    .account-left-side, .account-right-side {
+        width: 100%;
+    }
+
+    .user-form-box {
+        width: 100%;
+        column-gap: 1rem;
+    }
+
+    .user-form-box input[type="text"], 
+    .user-form-box input[type="email"], 
+    .user-form-box input[type="date"] {
+        width: calc(73% - 1rem);
+    }
+
+    .user-input-label {
+        width: 27%;
+    }
+
+    .upload-form-box {
+        max-width: 22rem;
+        width: 90%;
+        padding: 1.8rem;
+    }
+
+    .order-info-wrapper {
+        flex-direction: column;
+    }
+
+    .order-info {
+        width: 100%;
+    }
+
+    .order-product-qty {
+        font-size: 1rem;
+    }
+
+    .order-product-img {
+        width: 40%;
+    }
+
+    .order-product-name a {
+        font-size: 1rem;
+    }
+
+    .order-product-price h6 {
+        font-size: 1.1rem;
+    }
+}
+
+/* For tablet (767 < width <= 1024px) ---------------------------------------------*/
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    * {
+        font-size: 0.93rem;
+    }
+
+    .account-left-side {
+        width: 30%;
+    }
+
+    .user-form-box {
+        width: 100%;
+    }
+
+    .user-form-box input[type="text"],
+    .user-form-box input[type="email"],
+    .user-form-box input[type="password"] {
+        width: 70%;
+    }
+
+    .user-form-box input[type="date"] {
+        width: 50%;
+    }
+
+    .user-input-label {
+        width: 7rem;
+    }
+}

@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "Thông tin đặt hàng - STech";
+}
+
+<section class="checkout-notice-wrapper">
+    <div class="checkout-notice">
+        <div class="checkout-notice-box d-flex align-items-center">
+            <ul class="notice-list">
+            </ul>
+        </div>
+        <button class="close-notice mt-3">Đóng</button>
+    </div>
+</section>
+
+<section class="cart-wrapper">
+    <div class="container-fluid">
+        <div class="breadcrumb-cart">
+            <a href="/collections/all">
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>Mua thêm sản phẩm khác</span>
+            </a>
+        </div>
+        <div class="cart-main">
+
+            <div class="checkout-steplist">
+                <div class="checkout-step step-1 step-active">
+                    <i class='bx bxs-shopping-bag-alt step-icon'></i>
+                    <span class="step-text">Giỏ hàng</span>
+                </div>
+                <div class="checkout-step step-2 step-active">
+                    <i class='bx bxs-id-card step-icon'></i>
+                    <span class="step-text">Thông tin đặt hàng</span>
+                </div>
+                <div class="checkout-step step-3 step-active">
+                    <i class='bx bxs-credit-card step-icon'></i>
+                    <span class="step-text">Thanh toán</span>
+                </div>
+                <div class="checkout-step step-4">
+                    <i class='bx bxs-check-shield step-icon'></i>
+                    <span class="step-text">Hoàn tất</span>
+                </div>
+            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="cart-info" id="cart-payment-box">
+                    <div class="cart-payment-wrapper">
+                        <div class="to-prev-step">
+                            <a href="/cart#cart-order-box">
+                                <i class="fa-solid fa-chevron-left"></i>
+                                <span>Quay lại</span>
+                            </a>
+                        </div>
+                        <div class="cart-form-header">
+                            <h5>Thông tin đặt hàng</h5>
+                        </div>
+                        <div class="user-order-info">
+                            <ul class="user-order-info-list">
+                                <li>
+                                    <span>Khách hàng: </span>
+                                    @ViewBag.User.UserFullName
+                                </li>
+                                <li>
+                                    <span>Số điện thoại: </span>
+                                    @ViewBag.User.PhoneNumber
+                                </li>
+                                <li>
+                                    <span>Cách thức nhận hàng: </span>
+                                    @(ViewBag.Order.ShipMethod == "COD" ? "Giao hàng tận nơi" : "Nhận tại cửa hàng" )
+                                </li>
+                                @if (ViewBag.Order.ShipMethod == "COD")
+                                {
+                                    <li>
+                                        <span>Địa chỉ nhận hàng: </span>
+                                        @ViewBag.User.Address
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <hr class="cart-hr" />
+                    <div class="choose-payment-method">
+                        <h5>Chọn hình thức thanh toán</h5>
+                        <div class="payment-method">
+                            <div class="payment-method-box">
+                                <input type="radio" id="cod-method" name="payment-method" value="COD" checked />
+                                <label for="cod-method">
+                                    <i class="fa-solid fa-truck-ramp-box payment-icon cod-icon"></i>
+                                    <span> Thanh toán khi nhận hàng (COD)</span>
+                                </label>
+                            </div>
+                            <div class="payment-method-box">
+                                <input type="radio" id="card-method" name="payment-method" value="card" />
+                                <label for="card-method">
+                                    <i class="fa-brands fa-cc-visa payment-icon visa-icon"></i>
+                                    <span>Thanh toán qua thẻ VISA/MASTERCARD</span>
+                                </label>
+                            </div>
+                            <div class="payment-method-box">
+                                <input type="radio" id="paypal-method" name="payment-method" value="paypal" />
+                                <label for="paypal-method">
+                                    <i class="fa-brands fa-paypal payment-icon paypal-icon"></i>
+                                    <span>Thanh toán qua ví Paypal</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="cart-hr" />
+                    <div class="cart-product-total d-flex flex-column gap-3">
+                        <div class="summary-shipping">
+                            <span class="s-shipping-title">Phí vận chuyển: </span>
+                            <span class="ship-price">Miễn phí</span>
+                        </div>
+                        <div class="summary-price">
+                            <span class="s-price-title">Tổng tiền: </span>
+                            <span class="total-price"> @(ViewBag.TotalPrice + "đ")</span>
+                        </div>
+                        <button class="summary-action payment-action">
+                            THANH TOÁN NGAY
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

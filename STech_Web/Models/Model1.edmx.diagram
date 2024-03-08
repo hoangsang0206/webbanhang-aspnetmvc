@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="291a0d5cc4244dac8c52fa36d3245f9d" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseSTechModel.Brand" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Cart" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Category" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Customer" Width="1.5" PointX="3.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Megamenu" Width="1.5" PointX="11" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.MegamenuItem" Width="1.5" PointX="13.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.OrderDetail" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Order" Width="1.5" PointX="6" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.ProductContent" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.ProductGift" Width="1.5" PointX="5.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Product" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.ProductSpecification" Width="1.5" PointX="5.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.SaleDetail" Width="1.5" PointX="8.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Sale" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.SidebarMenuNav" Width="1.5" PointX="8.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.WareHouse" Width="1.5" PointX="5.25" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Banner1" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseSTechModel.Slider" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_Pro_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_Cart_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_Pro_Cate" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_Orders_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_Megamenu_SidebarNav" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_MegamenuItem_Megamenu" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_OrderDetail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_ProductContents_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_ProductGifts_G_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_ProductGifts_P_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_ProductSpecifications_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_SaleDetails_Pro" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_WareHouse_Pro" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseSTechModel.FK_SaleDetails_Sale" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

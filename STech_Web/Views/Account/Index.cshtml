@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "Tài khoản";
+}
+
+@model STech_Web.Identity.AppUser
+
+@if (User.Identity.IsAuthenticated)
+{
+    <section class="account-wrapper d-flex">
+        <div class="account-left-side">
+            <div class="account-name d-flex align-items-center gap-3">
+                @if (string.IsNullOrEmpty(Model.ImgSrc))
+                {
+                    <div class="user-image-box position-relative">
+                        <div class="user-image">
+                            <img src="/images/no-user-image-icon.png" alt="" class="user-img" />
+                        </div>
+                        <button class="upload-img-btn position-absolute">
+                            <i class='bx bx-plus'></i>
+                        </button>
+                    </div>
+                }
+                else
+                {
+                    <div class="user-image-box position-relative">
+                        <div class="user-image">
+                            <img src="@Model.ImgSrc" alt="" class="user-img" />
+                        </div>
+                        <button class="upload-img-btn position-absolute">
+                            <i class='bx bx-plus'></i>
+                        </button>
+                    </div>
+                }
+                <span>@User.Identity.Name</span>
+            </div>  
+            <hr />
+            <div class="account-nav">
+                <ul class="account-nav-list">
+                    <li class="account-nav-list-item" id="info-nav">
+                        <a href="#account-info" class="activeNav">
+                            <i class="fa-solid fa-user account-list-icon"></i>
+                            <span>Thông tin tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="account-nav-list-item" id="orders-nav">
+                        <a href="#orders">
+                            <i class="fa-solid fa-bag-shopping account-list-icon"></i>
+                            <span>Đơn hàng</span>
+                        </a>
+                    </li>
+                    <li class="account-nav-list-item" id="password-nav">
+                        <a href="#password">
+                            <i class="fa-solid fa-key account-list-icon"></i>
+                            <span>Đổi mật khẩu</span>
+                        </a>
+                    </li>
+                    <li class="account-nav-list-item">
+                        <p class="account-logout">
+                            <i class="fa-solid fa-right-from-bracket account-list-icon"></i>
+                            <span>Đăng xuất</span>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="account-right-side">
+            <div class="account-right-box current" data-account-side="account-info">
+                <h3 class="r-side-header">Thông tin tài khoản</h3>
+                <div class="account-info-wrapper">
+                    <form action="#" method="post" class="user-update-form">
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Họ tên</span>
+                            </div>
+                            <input type="text" id="UserFulName" name="UserFulName" value="@Model.UserFullName" />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Giới tính</span>
+                            </div>
+                            <div class="input-radio d-flex align-items-center">
+                                @if (Model.Gender == "Nam")
+                                {
+                                    <input type="radio" id="Gender1" name="Gender" value="Nam" checked />
+                                    <label for="Gender1">Nam</label>
+                                    <input type="radio" id="Gender2" name="Gender" value="Nữ" />
+                                    <label for="Gender2">Nữ</label>
+                                }
+                                else if (Model.Gender == "Nữ")
+                                {
+                                    <input type="radio" id="Gender1" name="Gender" value="Nam" />
+                                    <label for="Gender1">Nam</label>
+                                    <input type="radio" id="Gender2" name="Gender" value="Nữ" checked />
+                                    <label for="Gender2">Nữ</label>
+                                }
+                                else
+                                {
+                                    <input type="radio" id="Gender1" name="Gender" value="Nam" />
+                                    <label for="Gender1">Nam</label>
+                                    <input type="radio" id="Gender2" name="Gender" value="Nữ" />
+                                    <label for="Gender2">Nữ</label>
+                                }
+                            </div>
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Số điện thoại</span>
+                            </div>
+                            <input type="text" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Email</span>
+                            </div>
+                            <input type="email" id="Email" name="Email" value="@Model.Email" />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Ngày sinh</span>
+                            </div>
+                            <input type="date" id="DOB" name="DOB" value="@( Model.DOB.HasValue ? Model.DOB.Value.ToString("yyyy-MM-dd") : "")" />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Địa chỉ</span>
+                            </div>
+                            <input type="text" id="Address" name="Address" value="@( Model.Address )" />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end"></div>
+                            <button type="submit" class="user-form-submit">LƯU THAY ĐỔI</button>
+                        </div>
+                    </form>
+
+                    <div class="update-error mt-3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-right-box" data-account-side="orders">
+                <h3 class="r-side-header">Đơn hàng</h3>
+                <div class="orders-wrapper">
+                    <div class="orders-header">
+                        <ul class="order-header-list">
+                            <li class="active" data-get-order="all">
+                                TẤT CẢ
+                            </li>
+                            <li data-get-order="new">
+                                MỚI
+                            </li>
+                            <li data-get-order="wait-for-pay">
+                                CHỜ THANH TOÁN
+                            </li>
+                            <li data-get-order="paid">
+                                ĐÃ THANH TOÁN
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order-search-box">
+                        <form action="#" method="post" class="order-search-form">
+                            <input type="text" id="order-search" name="order-search" value="" required autocomplete="off" placeholder="Tìm đơn hàng theo mã đơn"/>
+                            <button type="submit" class="order-search-btn">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <hr />
+                    <div class="order-list-box mt-1">
+                        @if (ViewBag.Orders.Count > 0)
+                        {
+                            <div class="order-list">
+                                <table class="table">
+                                    <tr>
+                                        <th>Mã ĐH</th>
+                                        <th>Ngày đặt</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái thanh toán</th>
+                                        <th>Trạng thái</th>
+                                        <th></th>
+                                    </tr>
+                                    @foreach (var item in ViewBag.Orders)
+                                    {
+                                        var paymentStatusClass = "order-success";
+                                        if (item.PaymentStatus == "Thanh toán thất bại") { paymentStatusClass = "order-failed"; }
+                                        else if (item.PaymentStatus == "Chờ thanh toán") { paymentStatusClass = "order-waiting"; }
+
+                                        <tr>
+                                            <td class="order-id">@item.OrderID</td>
+                                            <td class="order-date">@item.OrderDate.ToString("dd/MM/yyyy")</td>
+                                            <td class="order-total">@item.TotalPaymentAmout.ToString("##,###", ViewBag.cul)đ</td>
+                                            <td>
+                                                <div class="order-pstatus @paymentStatusClass">@item.PaymentStatus </div>
+                                            </td>
+                                            <td>
+                                                <div class="order-status @(item.Status == "Đã xác nhận" ? "order-success" : "order-waiting")">@item.Status</div>
+                                            </td>
+                                            <td> <a href="/order/detail/@item.OrderID">Chi tiết</a></td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="order-empty d-flex flex-column gap-3 align-items-center justify-content-center">
+                                <img src="#" alt="" />
+                                <span>Bạn chưa có đơn hàng nào</span>
+                                <button class="to-home-page-btn" onclick="window.location.href='/collections/all'">
+                                    TIẾP TỤC MUA HÀNG
+                                </button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="account-right-box" data-account-side="password">
+                <h3 class="r-side-header">Đổi mật khẩu</h3>
+                <div class="password-wrapper">
+                    <form action="#" method="post" class="change-password-form">
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Mật khẩu cũ</span>
+                            </div>
+                            <input type="password" id="OldPassword" name="OldPassword" value="" required />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Mật khẩu mới</span>
+                            </div>
+                            <input type="password" id="NewPassword" name="NewPassword" value="" required />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end">
+                                <span>Nhập lại mật khẩu mới</span>
+                            </div>
+                            <input type="password" id="ConfirmNewPassword" name="ConfirmNewPassword" value="" required />
+                        </div>
+                        <div class="user-form-box d-flex align-items-center">
+                            <div class="user-input-label text-end"></div>
+                            <button type="submit" class="user-form-submit">ĐỔI MẬT KHẨU</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="update-error mt-3">
+                </div>
+            </div>
+        </div>
+       
+    </section>
+
+    <div class="upload-user-image position-fixed">
+        <div class="upload-form-box position-relative">
+            <div class="close-upload-frm">
+                <i class='bx bx-x'></i>
+            </div>
+            <h4>Tải hình ảnh hồ sơ</h4>
+            <div>* Kích thước hình ảnh không lớn hơn 5MB.</div>
+            <div class="mb-3">* Hãy chọn ảnh có tỉ lệ 1:1</div>
+            <div class="upload-user-img d-flex flex-column align-items-center justify-content-center gap-2">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <span>Tải tên hoặc kéo thả hình ảnh vào đây</span>
+            </div>
+            <form action="#" class="form-upload-image" enctype="multipart/form-data">
+                <input type="file" class="file-input" id="imageFile" name="imageFile" accept="image/jpg, image/jpeg, image/png, image/webp" hidden required />
+            </form>
+            <div class="upload-progress-bar align-items-center gap-2 justify-content-between mt-3">
+               
+            </div>
+            <div class="upload-frm-notice d-flex align-items-center mt-3">
+
+            </div>
+        </div>
+    </div>
+}

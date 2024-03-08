@@ -1,0 +1,344 @@
+﻿@model STech_Web.Models.Product
+
+<section class="breadcrumb">
+    <ul class="breadcrumb-list d-flex">
+        @foreach (var item in ViewBag.Breadcrumb)
+        {
+            <li class="breadcrumb-item">
+                @if (item.BreadcrumbLink == "")
+                {
+                    <span>@item.BreadcrumbName</span>
+                }
+                else
+                {
+                    <a href="@item.BreadcrumbLink">
+                        @item.BreadcrumbName
+                    </a>
+                }
+            </li>
+        }
+    </ul>
+</section>
+
+<section class="product-detail">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12 product-detail-box product-gallery">
+                <div class="slider-main">
+                    @if (Model.ImgSrc != null)
+                    {
+                        <img src="@(Model.ImgSrc)" alt="" />
+                    }
+                    @if (Model.ImgSrc1 != null)
+                    {
+                        <img src="@(Model.ImgSrc1)" alt="" />
+                    }
+                    @if (Model.ImgSrc2 != null)
+                    {
+                        <img src="@(Model.ImgSrc2)" alt="" />
+                    }
+                    @if (Model.ImgSrc3 != null)
+                    {
+                        <img src="@(Model.ImgSrc3)" alt="" />
+                    }
+                    @if (Model.ImgSrc4 != null)
+                    {
+                        <img src="@(Model.ImgSrc4)" alt="" />
+                    }
+                    @if (Model.ImgSrc5 != null)
+                    {
+                        <img src="@(Model.ImgSrc5)" alt="" />
+                    }
+                    @if (Model.ImgSrc6 != null)
+                    {
+                        <img src="@(Model.ImgSrc6)" alt="" />
+                    }
+                    @if (Model.ImgSrc7 != null)
+                    {
+                        <img src="@(Model.ImgSrc7)" alt="" />
+                    }
+                </div>
+                <div class="slider-nav mt-3">
+                    @if (Model.ImgSrc != null)
+                    {
+                       <div class="slick-slider-item">
+                           <img src="@(Model.ImgSrc)" alt="" />
+                       </div>
+                    }
+                    @if (Model.ImgSrc1 != null)
+                    {
+                        <div class="slick-slider-item">
+                            <img src="@(Model.ImgSrc1)" alt="" />
+                        </div>
+                    }
+                    @if (Model.ImgSrc2 != null)
+                    {
+                       <div class="slick-slider-item">
+                           <img src="@(Model.ImgSrc2)" alt="" />
+                       </div>
+                    }
+                    @if (Model.ImgSrc3 != null)
+                    {
+                        <div class="slick-slider-item">
+                            <img src="@(Model.ImgSrc3)" alt="" />
+                        </div>
+                    }
+                    @if (Model.ImgSrc4 != null)
+                    {
+                       <div class="slick-slider-item">
+                           <img src="@(Model.ImgSrc4)" alt="" />
+                       </div>
+                    }
+                    @if (Model.ImgSrc5 != null)
+                    {
+                        <div class="slick-slider-item">
+                            <img src="@(Model.ImgSrc5)" alt="" />
+                        </div>
+                    }
+                    @if (Model.ImgSrc6 != null)
+                    {
+                        <div class="slick-slider-item">
+                            <img src="@(Model.ImgSrc6)" alt="" />
+                        </div>
+                    }
+                    @if (Model.ImgSrc7 != null)
+                    {
+                        <div class="slick-slider-item">
+                            <img src="@(Model.ImgSrc7)" alt="" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-sm-12 col-12 product-detail-box product-info">
+                <div class="product-info-name">
+                    <h3>@Model.ProductName</h3>
+                </div>
+                <div class="product-info-original-price">
+                    @{ double discountPercent = 0; }
+                    @if (Model.Cost > Model.Price)
+                    {
+                        decimal cost = Convert.ToDecimal(Model.Cost);
+                        <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+
+                        discountPercent = ((Convert.ToDouble(Model.Cost) - Convert.ToDouble(Model.Price))
+                            / Convert.ToDouble(Model.Cost)) * 100;
+                    }
+                </div>
+                <div class="product-info-price d-flex align-items-center">
+                    @{
+                        decimal price = Convert.ToDecimal(Model.Price);
+                    }
+                    <h2>@price.ToString("#,###", ViewBag.cul)đ</h2>
+                    @if (discountPercent > 0)
+                    {
+                        <div class="product-info-discount-percent">
+                            @( "-" + (int)discountPercent + "%" )
+                        </div>
+                    }
+                </div>
+                @if (ViewBag.ProductGifts.Count > 0)
+                {
+                    <div class="product-gift my-3">
+                        <div class="product-gift-header d-flex align-items-center">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Quà tặng khuyến mãi</span>
+                        </div>
+                        <div class="product-gift-content">
+                            <ul class="product-gift-list">
+                                @{ int i = 1; }
+                                @foreach (var item in ViewBag.ProductGifts)
+                                {
+                                    <li class="product-gift-item d-flex align-items-center gap-3">
+                                        <span>@i</span>
+                                        <a href="@item.GiftID">@item.Product.ProductName</a>
+                                    </li>
+
+                                    i++;
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+                <div class="product-action d-flex my-2 align-items-center">
+                    @if (Model.WareHouse.ProductID != null && Model.WareHouse.Quantity > 0)
+                    {
+                        <div class="buy-action d-flex gap-3">
+                            <button class="buy-action-btn" data-product-id="@Model.ProductID">
+                                <h4>MUA NGAY</h4>
+                                <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
+                            </button>
+                            <button class="add-to-cart-btn" data-product-id="@Model.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="buy-action">
+                            <button class="buy-action-btn" disabled>
+                                <h4>HẾT HÀNG</h4>
+                            </button>
+                        </div>
+                    }
+                </div>
+                <div class="product-description d-flex flex-column gap-3 mt-4">
+                    @{
+                        if (Model.Description != null)
+                        {
+                            List<string> desList = Model.Description.Split('/').ToList();
+                            foreach (string des in desList)
+                            {
+                                <span>✔&nbsp;@des</span>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid mt-3 p-0">
+        <div class="product-cts-wrapper d-flex align-items-start gap-3">
+            <div class="product-contents product-cts-box">
+                <div class="box-header">
+                    <h4>Mô tả sản phẩm</h4>
+                </div>
+                @if (Model.ProductContents.Count > 0)
+                {
+                    foreach (var content in Model.ProductContents)
+                    {
+                        <div class="product-content-box mt-4">
+                            <div class="product-content">
+                                <div class="content-header">
+                                    <h5>@content.Title</h5>
+                                </div>
+                                <div class="main-content my-3">
+                                    @content.Content
+                                </div>
+                                @if (content.ContentImg != null)
+                                {
+                                    <div class="pro-content-image d-flex justify-content-center">
+                                        <img src="@content.ContentImg" alt="" />
+                                    </div>
+                                }
+                                @if (content.ContentVideo != null)
+                                {
+                                    <div class="pro-ytb-content-video">
+                                        @Html.Raw(content.ContentVideo)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-center mt-5">
+                        Sản phẩm này chưa có mô tả.
+                    </div>
+                }
+            </div>
+            <div class="product-parameter-news d-flex flex-column gap-3">
+                <div class="product-parameter product-cts-box">
+                    <div class="box-header">
+                        <h4>Thông số kĩ thuật</h4>
+                    </div>
+                    <div class="product-para-table mt-4">
+                        <table>
+                            <tr>
+                                <td>Hãng SX</td>
+                                <td>@(Model.Brand != null ? Model.Brand.BrandName : "")</td>
+                            </tr>
+                            @if (Model.ProductSpecifications.Count > 0)
+                            {
+                                foreach (var spec in Model.ProductSpecifications)
+                                {
+                                    <tr>
+                                        <td>@spec.SpecName</td>
+                                        <td>@spec.SpecContent</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="product-news product-cts-box">
+                    <div class="box-header">
+                        <h4>Tin tức nổi bậc</h4>
+                    </div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Products.Count > 0)
+    {
+        <div class="order-product product-cts-box mt-3">
+            <div class="box-header">
+                <h4>Sản phẩm tương tự</h4>
+            </div>
+            <div class="order-product-slick-slider">
+                @foreach (var item in ViewBag.Products)
+                {
+                    <div class="slick-slider-item">
+                        <div class="product-box">
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-image lazy-loading">
+                                    <img lazy-src="@item.ImgSrc" alt="" class="product-img">
+                                </div>
+                            </a>
+                            @if (item.WareHouse.Quantity <= 0)
+                            {
+                                <div class="out-of-stock mt-1 text-center">
+                                    Hết hàng
+                                </div>
+                            }
+                            <a href="/product/@item.ProductID" class="product-link">
+                                <div class="product-name">
+                                    @item.ProductName
+                                </div>
+                            </a>
+
+                            @{ double discountPercent1 = 0; }
+                            <div class="product-original-price">
+                                @if (item.Cost > item.Price)
+                                {
+                                    decimal cost1 = Convert.ToDecimal(item.Cost);
+
+                                    discountPercent1 = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                        / Convert.ToDouble(item.Cost)) * 100;
+                                    <span>@cost1.ToString("#,###", ViewBag.cul)đ</span>
+                                }
+                                else
+                                {
+                                    <span style="visibility: hidden">0</span>
+                                }
+                            </div>
+                            <div class="product-price d-flex align-items-center">
+                                @{
+                                    decimal price1 = Convert.ToDecimal(item.Price);
+                                }
+                                <span>@price1.ToString("##,###", ViewBag.cul)đ</span>
+                                @if (discountPercent1 > 0)
+                                {
+                                    <div class="product-discount-percent">
+                                        @( "-" + (int)discountPercent1 + "%" )
+                                    </div>
+                                }
+                            </div>
+                            <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                            <button class="btn-add-to-cart" data-product="@item.ProductID">
+                                <i class="fa-solid fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</section>

@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-------------------------------------->
+    <link rel="shortcut icon" href="~/images/logo/favicon.ico" type="image/x-icon">
+    <!--Box icon----->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!------------CSS------------>
+    <link rel="stylesheet" type="text/css" href="~/Areas/Admin/css/style.css" />
+    <!--------------------------------------------------------------------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous" defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js" defer></script>
+    
+    <script type="text/javascript" src="/Areas/Admin/js/script.js" defer></script>
+    <script type="text/javascript" src="/Areas/Admin/js/dashboard.js" defer></script>
+    <script type="text/javascript" src="/Areas/Admin/js/categories.js" defer></script>
+    <script type="text/javascript" src="/Areas/Admin/js/products.js" defer></script>
+    <script type="text/javascript" src="/Areas/Admin/js/orders.js" defer></script>
+    <script type="text/javascript" src="/Areas/Admin/js/user.js" defer></script>
+    <script type="text/javascript" src="/Areas/Admin/js/sale.js" defer></script>
+
+</head>
+
+<body>
+
+    <nav class="sidebar d-flex flex-column justify-content-between">
+        <header class="position-relative">
+            <div class="logo-text d-flex align-items-center">
+                <div class="logo-box">
+                    <img src="/images/logo/stech-logo-colors.png" alt="STech logo" />
+                </div>
+                <div class="header-text d-flex flex-column justify-content-center">
+                    <span class="company-name">STech</span>
+                    <span class="student-name">by Lê Hoàng Sang</span>
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+
+            <div class="menu-bar">
+                <div class="menu">
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <a href="/admin/dashboard" class="@( ViewBag.ActiveNav == "dashboard" ? "active" : "" )">
+                                <i class='bx bx-home menu-icon'></i>
+                                <span class="sidebar-text">Trang chủ</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/categories" class="@( ViewBag.ActiveNav == "categories" ? "active" : "" )">
+                                <i class='bx bx-category menu-icon'></i>
+                                <span class="sidebar-text">Danh mục/Hãng</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/products" class="@( ViewBag.ActiveNav == "products" ? "active" : "" )">
+                                <i class='bx bx-laptop menu-icon'></i>
+                                <span class="sidebar-text">Sản phẩm</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/orders" class="@( ViewBag.ActiveNav == "orders" ? "active" : "" ) d-flex justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class='bx bx-notepad menu-icon'></i>
+                                    <span class="sidebar-text">Đơn hàng</span>
+                                </div>
+                                <div class="new-order-count">
+
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/sale" class="@( ViewBag.ActiveNav == "sale" ? "active" : "" )">
+                                <i class='bx bx-purchase-tag-alt menu-icon'></i>
+                                <span class="sidebar-text">Khuyến mãi</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/users" class="@( ViewBag.ActiveNav == "users" ? "active" : "" )">
+                                <i class='bx bx-user-circle menu-icon'></i>
+                                <span class="sidebar-text">Quản lý tài khoản</span>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="#" class="@( ViewBag.ActiveNav == "others" ? "active" : "" )">
+                                <i class='bx bx-dots-horizontal-rounded menu-icon'></i>
+                                <span class="sidebar-text">Khác</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="bottom-menu">
+            <hr />
+            <div>
+                <a href="/">
+                    <i class='bx bx-left-arrow-alt menu-icon'></i>
+                    <span class="sidebar-text">Về trang bán hàng</span>
+                </a>
+            </div>
+            <div>
+                <a href="/admin/login/logout">
+                    <i class='bx bx-log-out menu-icon'></i>
+                    <span class="sidebar-text">Đăng xuất</span>
+                </a>
+            </div>
+        </div>
+
+    </nav>
+
+    <main>
+        <section class="main-content">
+
+            @RenderBody()
+
+        </section>
+
+        <section class="loading">
+            <span class="loader"></span>
+        </section>
+
+    </main>
+
+    <footer>
+        <span>Copyright &copy; Lê Hoàng Sang - Trường Đại học Công thương Tp.HCM</span>
+    </footer>
+</body>
+</html>

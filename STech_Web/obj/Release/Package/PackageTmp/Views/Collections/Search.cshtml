@@ -1,0 +1,228 @@
+﻿
+@{
+    ViewBag.Title = "Tìm kiếm sản phẩm";
+}
+
+@model List<STech_Web.Models.Product>
+
+<section class="search-list">
+    <div class="search-value d-flex align-items-center justify-content-center">
+        <h3>
+            Tìm kiếm:
+            <span>@ViewBag.searchValue</span>
+        </h3>
+    </div>
+    @if (Model.Count <= 0)
+    {
+        <div class="search-error d-flex flex-column align-items-center">
+            <div class="error-search-image d-flex justify-content-center">
+                <img src="/images/emotes/genshin-impact-emote.png" alt="" />
+            </div>
+            <form action="/search" method="post" class="form-search-error d-flex">
+                <input type="search" class="input-search-error" name="search" value="@ViewBag.searchValue" placeholder="Tìm kiếm" />
+                <button class="submit-search-error" type="submit">Tìm kiếm</button>
+            </form>
+            <div class="error-search-message d-flex flex-column align-items-center">
+                <span>
+                    Rất tiếc, chúng tôi không tìm thấy kết quả cho từ khóa của bạn
+                </span>
+                <span>
+                    Vui lòng kiểm tra chính tả, sử dụng các từ tổng quát hơn và thử lại!
+                </span>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="sort-dropdown-box d-flex justify-content-end">
+            <div class="sort-dropdown">
+                <button class="sort-dropdown-btn">
+                    <i class="fa-solid fa-arrow-down-short-wide"></i>
+                    Sắp xếp theo: <span id="sort-value">@ViewBag.SortName</span>
+                </button>
+                <div class="sort-dropdown-content">
+
+                    <a href="/search?search=@ViewBag.searchValue&sort=random&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "random" ? "active" : "" )">
+                            Ngẫu nhiên
+                        </div>
+                    </a>
+
+                    <a href="/search?search=@ViewBag.searchValue&sort=price-ascending&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "price-ascending" ? "active" : "" )">
+                            Giá tăng dần
+                        </div>
+                    </a>
+
+                    <a href="/search?search=@ViewBag.searchValue&sort=price-descending&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "price-descending" ? "active" : "" )">
+                            Giá giảm dần
+                        </div>
+                    </a>
+
+                    <a href="/search?search=@ViewBag.searchValue&sort=name-az&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "name-az" ? "active" : "" )">
+                            Tên A - Z
+                        </div>
+                    </a>
+
+                    <a href="/search?search=@ViewBag.searchValue&sort=name-za&page=@ViewBag.Page">
+                        <div class="sort-dropdown-content-item @( ViewBag.sortValue == "name-za" ? "active" : "" )">
+                            Name Z - A
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="product-search-item-list">
+            @foreach (var item in Model)
+            {
+                <div class="product-search-item">
+                    <div class="product-box">
+                        <a href="/product/@item.ProductID" class="product-link">
+                            <div class="product-image lazy-loading">
+                                <img lazy-src="@(item.ImgSrc != null ? item.ImgSrc : "/images/no-image.jpg")" alt="" class="product-img">
+                            </div>
+                        </a>
+                        @if (item.WareHouse.Quantity <= 0)
+                        {
+                            <div class="out-of-stock mt-1 text-center">
+                                Hết hàng
+                            </div>
+                        }
+                        <a href="/product/@item.ProductID" class="product-link">
+                            <div class="product-name">
+                                @item.ProductName
+                            </div>
+                        </a>
+
+                        @{ double discountPercent = 0; }
+                        <div class="product-original-price">
+                            @if (item.Cost > item.Price)
+                            {
+                                decimal cost = Convert.ToDecimal(item.Cost);
+
+                                discountPercent = ((Convert.ToDouble(item.Cost) - Convert.ToDouble(item.Price))
+                                    / Convert.ToDouble(item.Cost)) * 100;
+                                <span>@cost.ToString("#,###", ViewBag.cul)đ</span>
+                            }
+                            else
+                            {
+                                <span style="visibility: hidden">0</span>
+                            }
+                        </div>
+                        <div class="product-price d-flex align-items-center">
+                            @{
+                                decimal price = Convert.ToDecimal(item.Price);
+
+                            }
+                            <span>@price.ToString("#,###", ViewBag.cul)đ</span>
+                            @if (discountPercent > 0)
+                            {
+                                <div class="product-discount-percent">
+                                    @( "-" + (int)discountPercent + "%" )
+                                </div>
+                            }
+                        </div>
+                        <button class="view-product" onclick="window.location.href='/product/@item.ProductID'">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                        <button class="btn-add-to-cart" data-product="@item.ProductID">
+                            <i class="fa-solid fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+
+    <div class="pagination-box d-flex justify-content-center align-items-center">
+
+        @if (ViewBag.Page > 1)
+        {
+            if (ViewBag.NoOfPages > 2)
+            {
+                <button class="pagination-first-page pagination-btn" onclick="window.location.href='/search?search=@ViewBag.searchValue&sort=@ViewBag.sortValue&page=1'">
+                    <img src="/images/icons/double-chevron-left.png" alt="" class="pagination-icon" />
+                </button>
+            }
+
+            <button class="pagination-previous pagination-btn" onclick="window.location.href='/search?search=@ViewBag.searchValue&sort=@ViewBag.sortValue&page=@(ViewBag.Page - 1)'">
+                <img src="/images/icons/chevron-left.png" alt="" class="pagination-icon" />
+            </button>
+        }
+
+        <ul class="pagination d-flex align-items-center p-0 m-0">
+            @if (ViewBag.NoOfPages > 1)
+            {
+                if (ViewBag.NoOfPages <= 3)
+                {
+                    for (int i = 1; i <= ViewBag.NoOfPages; i++)
+                    {
+                        <li class="pagination-item @(i == ViewBag.Page ? "active" : "")">
+                            <a href="/search?search=@ViewBag.searchValue&sort=@ViewBag.sortValue&page=@i">@i</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    int startPage = ViewBag.Page - 1;
+                    int endPage = ViewBag.Page + 1;
+
+
+                    if (startPage > 1)
+                    {
+                        <li class="mx-2">
+                            <span>...</span>
+                        </li>
+                    }
+
+                    if (ViewBag.Page <= 1)
+                    {
+                        startPage = 1;
+                        endPage = 3;
+                    }
+                    else if (ViewBag.Page >= ViewBag.NoOfPages)
+                    {
+                        startPage = ViewBag.NoOfPages - 2;
+                        endPage = ViewBag.NoOfPages;
+                    }
+
+                    for (int i = startPage; i <= endPage; i++)
+                    {
+                        <li class="pagination-item @(i == ViewBag.Page ? "active" : "")">
+                            <a href="/search?search=@ViewBag.searchValue&sort=@ViewBag.sortValue&page=@i">@i</a>
+                        </li>
+                    }
+
+                    if (endPage < ViewBag.NoOfPages)
+                    {
+                        <li class="mx-2">
+                            <span>...</span>
+                        </li>
+                    }
+                }
+            }
+        </ul>
+
+        @if (ViewBag.Page < ViewBag.NoOfPages)
+        {
+            <button class="pagination-next pagination-btn" onclick="window.location.href='/search?search=@ViewBag.searchValue&sort=@ViewBag.sortValue&page=@(ViewBag.Page + 1)'">
+                <img src="/images/icons/chevron-right.png" alt="" class="pagination-icon" />
+            </button>
+
+            if (ViewBag.NoOfPages > 2)
+            {
+                <button class="pagination-last-page pagination-btn" onclick="window.location.href='/search?search=@ViewBag.searchValue&sort=@ViewBag.sortValue&page=@ViewBag.NoOfPages'">
+                    <img src="/images/icons/double-chevron-right.png" alt="" class="pagination-icon" />
+                </button>
+            }
+        }
+
+    </div>
+
+</section>

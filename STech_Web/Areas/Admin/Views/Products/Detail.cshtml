@@ -1,0 +1,350 @@
+﻿@model STech_Web.Models.Product
+@{
+    ViewBag.Title = Model.ProductName;
+}
+
+<div class="product-detail-page mb-4">
+    <h2 class="title">Thông tin sản phẩm</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/admin/products">Sản phẩm</a>
+            </li>
+            <li class="breadcrumb-item">
+                @Model.ProductName
+            </li>
+        </ul>
+    </div>
+
+    <div class="product-detail">
+        <div class="product-images-wrapper mb-4">
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc != null ? Model.ImgSrc : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh chính</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc1 != null ? Model.ImgSrc1 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 1</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc2 != null ? Model.ImgSrc2 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 2</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc3 != null ? Model.ImgSrc3 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 3</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc4 != null ? Model.ImgSrc4 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 4</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc5 != null ? Model.ImgSrc5 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 5</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc5 != null ? Model.ImgSrc6 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 6</span>
+            </div>
+            <div class="product-image-box">
+                <div class="product-detail-image">
+                    <img src="@(Model.ImgSrc5 != null ? Model.ImgSrc7 : "/images/no-image.jpg")" alt="" />
+                </div>
+                <span>Hình ảnh 7</span>
+            </div>
+        </div>
+        <form action="#" method="post" class="product-detail-form d-flex flex-wrap">
+            <div class="left-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="ProductID" name="ProductID" value="@Model.ProductID" class="form-input" required />
+                    <label for="ProductID" class="input-label position-absolute">Mã sản phẩm</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="ProductName" name="ProductName" value="@Model.ProductName" class="form-input" required />
+                    <label for="ProductName" class="input-label position-absolute">Tên sản phẩm</label>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="text" id="Cost" name="Cost" value="@(Model.Cost >= Model.Price || Model.Cost != null ? Math.Round((double)Model.Cost).ToString() : "")" class="form-input" required />
+                                <label for="Cost" class="input-label position-absolute">Giá</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="text" id="Price" name="Price" value="@(Model.Cost <= Model.Price ? "" : Math.Round((double)Model.Price).ToString())" class="form-input" />
+                                <label for="Price" class="input-label position-absolute">Giá bán</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <select class="form-input select-input" id="CateID" name="CateID">
+                                    <option value="khac" selected>Danh mục</option>
+                                    @foreach (var cate in ViewBag.Categories)
+                                    {
+                                        if (Model.CateID == cate.CateID)
+                                        {
+                                            <option value="@cate.CateID" selected>@cate.CateName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@cate.CateID">@cate.CateName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <select class="form-input select-input" id="BrandID" name="BrandID">
+                                    <option value="khac" selected>Hãng</option>
+                                    @foreach (var brand in ViewBag.Brands)
+                                    {
+                                        if (Model.BrandID == brand.BrandID)
+                                        {
+                                            <option value="@brand.BrandID" selected>@brand.BrandName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@brand.BrandID">@brand.BrandName</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="number" id="Warranty" name="Warranty" value="@Model.Warranty" class="form-input" min="0" required />
+                                <label for="add-product-quantity" class="input-label position-absolute">Bảo hành (tháng)</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="number" id="add-product-quantity" value="@Model.WareHouse.Quantity" class="form-input" min="0" required />
+                                <label for="add-product-quantity" class="input-label position-absolute">Số lượng</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="number" id="ManufacturingDate" name="ManufacturingDate" value="@Model.ManufacturingDate" class="form-input" />
+                                <label for="ManufacturingDate" class="input-label position-absolute">Năm sản xuất</label>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-6">
+                            <div class="form-input-box position-relative d-flex align-items-center">
+                                <input type="text" id="Type" name="Type" value="@Model.Type" class="form-input" min="0" />
+                                <label for="Type" class="input-label position-absolute">Loại (vd: vivobook)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="ImgSrc" name="ImgSrc" value="@Model.ImgSrc" class="form-input" required />
+                    <label for="ImgSrc" class="input-label position-absolute">Đường dẫn hình ảnh chính</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-1" value="@(Model.ImgSrc1 != null ? Model.ImgSrc1 : "")" class="form-input" />
+                    <label for="add-product-image-1" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 1</label>
+                </div>
+            </div>
+
+            <div class="right-form">
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-2" value="@(Model.ImgSrc2 != null ? Model.ImgSrc2 : "")" class="form-input" />
+                    <label for="add-product-image-2" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 2</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-3" value="@(Model.ImgSrc3 != null ? Model.ImgSrc3 : "")" class="form-input" />
+                    <label for="add-product-image-3" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 3</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-4" value="@(Model.ImgSrc4 != null ? Model.ImgSrc4 : "")" class="form-input" />
+                    <label for="add-product-image-4" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 4</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-5" value="@(Model.ImgSrc5 != null ? Model.ImgSrc5 : "")" class="form-input" />
+                    <label for="add-product-image-4" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 5</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-6" value="@(Model.ImgSrc6 != null ? Model.ImgSrc6 : "")" class="form-input" />
+                    <label for="add-product-image-4" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 6</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <input type="text" id="add-product-image-7" value="@(Model.ImgSrc7 != null ? Model.ImgSrc7 : "")" class="form-input" />
+                    <label for="add-product-image-4" class="input-label position-absolute">Đường dẫn hình ảnh chi tiết 7</label>
+                </div>
+                <div class="form-input-box position-relative d-flex align-items-center">
+                    <textarea class="form-input form-area" id="Description" placeholder="Mô tả sản phẩm, tách dòng bằng dấu '/'">@Model.Description</textarea>
+                </div>
+            </div>
+
+            <div class="form-error my-1"></div>
+
+            <div class="form-btn-box d-flex gap-3 flex-wrap">
+                <button type="submit" class="form-submit-btn product-update-submit-btn">SỬA SẢN PHẨM</button>
+                <button type="button" class="product-delete-frm-btn">XÓA SẢN PHẨM</button>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="add-product-gifts mt-3">
+        <div class="form-box-header">
+            <h5 class="form-header-text">Sản phẩm tặng kèm</h5>
+        </div>
+        <div class="add-order-products">
+            <div>
+                <h6>Tìm kiếm sản phẩm</h6>
+                <div class="d-flex align-items-stretch justify-content-between my-3 order-search-p position-relative">
+                    <input type="text" id="order-search-p" value="" placeholder="Nhập tên sản phẩm" autocomplete="off" />
+                    <div class="pro-search-auto-complete position-absolute">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="add-gift-box">
+            @foreach (var gift in ViewBag.Gifts)
+            {
+                <div class="p-gift-item">
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label class="text-nowrap">Mã SP tặng kèm</label>
+                        <input type="text" name="p-gift-id" value="@gift.GiftID" class="form-add-input" required readonly />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 ps-5 my-3">
+                        <label>Tên SP tặng kèm</label>
+                        <input type="text" name="p-gift-name" value="@gift.Product.ProductName" class="form-add-input" readonly />
+                        <button type="button" class="delete-p-gift">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+        <button type="submit" class="page-btn add-gift-btn mt-5">Cập nhật</button>
+    </div>
+
+    <div class="propduct-specifications mt-3">
+        <div class="form-box-header">
+            <h5 class="form-header-text">Thông số kĩ thuật</h5>
+        </div>
+        <div class="spec-list">
+            @foreach (var spec in ViewBag.Specs)
+            {
+                <div class="p-spec-item">
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label class="text-nowrap">Tên thông số</label>
+                        <input type="text" name="p-spec-name" value="@spec.SpecName" class="form-add-input" required />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 ps-5 my-3">
+                        <label>Nội dung</label>
+                        <input type="text" name="p-spec-content" value="@spec.SpecContent" class="form-add-input" required/>
+                        <button type="button" class="delete-p-spec">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <button class="add-new-spec">
+                <i class='bx bx-plus'></i>
+            </button>
+            <button type="submit" class="page-btn add-spec-btn">Cập nhật</button>
+        </div>  
+    </div>
+
+    <div class="product-contents mt-3">
+        <div class="form-box-header">
+            <h5 class="form-header-text">Mô tả sản phẩm</h5>
+        </div>
+        <div class="content-list">
+            @foreach (var content in ViewBag.Contents)
+            {
+                <div class="p-content-item">
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label class="text-nowrap">Tiêu đề đoạn</label>
+                        <input type="text" name="p-content-title" value="@content.Title" class="form-add-input" />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label class="text-nowrap">Nội dung</label>
+                        <textarea class="form-add-input" name="p-content-main" style="overflow: hidden">@content.Content</textarea>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label class="text-nowrap">Hình ảnh</label>
+                        <input type="text" name="p-content-img" value="@content.ContentImg" class="form-add-input" />
+                    </div>
+                    <div class="d-flex align-items-center justify-content-between gap-3 my-3">
+                        <label class="text-nowrap">Video (nhúng iframe ytb)</label>
+                        <textarea name="p-content-video" class="form-add-input" style="overflow: hidden">@content.ContentVideo</textarea>
+                    </div>
+                    <button type="button" class="delete-p-content">
+                        <i class='bx bx-trash'></i>
+                    </button>
+                    <hr />
+                </div>
+            }
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <button class="add-new-content">
+                <i class='bx bx-plus'></i>
+            </button>
+            <button type="submit" class="page-btn add-content-btn">Cập nhật</button>
+        </div>
+    </div>
+</div>
+
+<div class="pro-detail-del delete-product-confirm">
+    <div class="delete-confirm-box d-flex flex-column align-items-center">
+        <i class="fa-regular fa-circle-question"></i>
+        <span>Xóa sản phẩm này ?</span>
+        <div class="delete-button-box">
+            <button class="cancel-delete">
+                Hủy
+            </button>
+            <button class="confirm-delete">
+                Xóa
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="complete-update-notice">
+    <div class="complete-notice-box d-flex flex-column align-items-center">
+        <i class='bx bx-check-circle bx-tada'></i>
+        <span>Sửa thành công.</span>
+        <button>OK</button>
+    </div>
+</div>

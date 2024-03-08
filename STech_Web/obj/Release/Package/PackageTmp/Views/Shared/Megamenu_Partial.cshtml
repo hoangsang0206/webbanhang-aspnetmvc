@@ -1,0 +1,57 @@
+﻿<div class="sidebar">
+    @{
+        STech_Web.Models.DatabaseSTechEntities db = new STech_Web.Models.DatabaseSTechEntities();
+        List<STech_Web.Models.SidebarMenuNav> sidebarMenu = db.SidebarMenuNavs.OrderBy(t => t.Id).ToList();
+
+        if (sidebarMenu.Count > 0)
+        {
+            <ul class="megamenu">
+                @foreach(var sidebar in sidebarMenu)
+                {
+                    <li class="megamenu-item">
+                        <div class="megamenu-item-box">
+                            <a href="@sidebar.SidebarLink" class="megamenu-link">
+                                @Html.Raw(sidebar.SidebarIcon)
+                                @sidebar.SidebarItemName
+                            </a>
+                            <i class="fa-solid fa-chevron-right megamenu-chevron"></i>
+                        </div>
+                        <div class="megamenu-content">
+                            @{
+                                List<STech_Web.Models.Megamenu> megamenu = sidebar.Megamenus.OrderBy(t => t.Id).ToList();
+                                if (megamenu.Count <= 0)
+                                {
+                                    <div class="megamenu-content-item">
+                                        <a href="#" class="megamenu-item-title">Đang cập nhật...</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    foreach (var megamenuItem in megamenu)
+                                    {
+                                        List<STech_Web.Models.MegamenuItem> megamenuContentList = megamenuItem.MegamenuItems.OrderBy(t => t.Id).ToList();
+                                        <div class="megamenu-content-item">
+                                            <div class="sub-megamenu-box d-flex align-items-center justify-content-between">
+                                                <a href="@megamenuItem.MegamenuLink" class="megamenu-item-title">@megamenuItem.MegamenuName</a>
+                                                <i class="fa-solid fa-chevron-right megamenu-chevron"></i>
+                                            </div>
+                                            <ul class="megamenu-item-list">
+                                                @foreach (var megamenuContentItem in megamenuContentList)
+                                                {
+                                                    <li class="megamenu-item-list-link">
+                                                        <a href="@megamenuContentItem.MegamenuItemLink">@megamenuContentItem.MegamenuItemName</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </li>
+                 }
+            </ul>
+        }
+
+    }
+</div>

@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý - STech";
+}
+
+<div class="dashboard position-relative">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+
+    <h2 class="title">Trang chủ</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Trang chủ
+            </li>
+        </ul>
+    </div>
+    <div class="dashboard-content">
+        <div class="dashboard-top d-flex justify-content-start flex-wrap">
+            <div class="dashboard-box dashboard-products d-flex align-items-center">
+                <div class="left-box">
+                    <i class='bx bxs-joystick'></i>
+                </div>
+                <div class="right-box d-flex flex-column">
+                    <h3>@( ViewBag.productCount > 0 ? ViewBag.productCount : "0" )</h3>
+                    <span>Sản phẩm</span>
+                </div>
+            </div>
+
+            <div class="dashboard-box dashboard-categories d-flex align-items-center">
+                <div class="left-box">
+                    <i class='bx bxs-category'></i>
+                </div>
+                <div class="right-box d-flex flex-column">
+                    <h3>@( ViewBag.categoryCount > 0 ? ViewBag.categoryCount : "0" )</h3>
+                    <span>Danh mục</span>
+                </div>
+            </div>
+
+            <div class="dashboard-box dashboard-brands d-flex align-items-center">
+                <div class="left-box">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="right-box d-flex flex-column">
+                    <h3>@( ViewBag.customerCount > 0 ? ViewBag.customerCount : "0" )</h3>
+                    <span>Khách hàng</span>
+                </div>
+            </div>
+
+            <div class="dashboard-box dashboard-orders d-flex align-items-center">
+                <div class="left-box">
+                    <i class='bx bxs-notepad'></i>
+                </div>
+                <div class="right-box d-flex flex-column">
+                    <h3>@( ViewBag.orderCount > 0 ? ViewBag.orderCount : "0" )</h3>
+                    <span>Đơn hàng</span>
+                </div>
+            </div>
+
+            <div class="dashboard-box dashboard-total d-flex align-items-center">
+                <div class="left-box">
+                    <i class='bx bxs-dollar-circle'></i>
+                </div>
+                <div class="right-box d-flex flex-column">
+                    <h3>@ViewBag.total </h3>
+                    <span>Doanh thu</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-bottom d-flex gap-3 my-4">
+            <div class="bot-left">
+                <div class="dash-header-box d-flex align-items-center justify-content-between">
+                    <h4>Tháng @ViewBag.CurrentDate</h4>
+                    <button class="summary-update">Cập nhật</button>
+                </div>
+                <hr />
+                <div class="realtime-update">
+                    Cập nhật: <span class="realtime"></span>
+                </div>
+                <div class="bot-left-content mt-3">
+                    <div class="bot-left-box">
+                        <i class="fa-regular fa-clipboard"></i>
+                        Số đơn hàng:&nbsp;<span class="month-order">0</span>
+                    </div>
+                    <div class="bot-left-box">
+                        <i class="fa-solid fa-coins"></i>
+                        Doanh thu:&nbsp;<span class="month-revenue">0</span>
+                    </div>
+                    <div class="bot-left-box">
+                        <i class="fa-solid fa-microchip"></i>
+                        Sản phẩm đã bán:&nbsp;<span class="month-psold">0</span>
+                    </div>
+                    <div class="bot-left-box">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Khách hàng mới:&nbsp;<span class="month-newcus">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-revenue">
+                <div class="dash-header-box">
+                    <h4>Doanh thu 6 tháng gần nhất</h4>
+                </div>
+                <canvas id="revenue-chart"></canvas>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+    //--Get current month data ---------------------------------------
+    function getCurrentMonthData() {
+        $.ajax({
+            type: 'Get',
+            url: '/admin/dashboard/getcurrentmonthsumarry',
+            success: (data) => {
+                $('.realtime').empty();
+                $('.month-order').empty();
+                $('.month-revenue').empty();
+                $('.month-psold').empty();
+                $('.month-newcus').empty();
+
+                var dateStr = Date(data.currentTime / 1000);
+                var date = new Date(dateStr)
+
+                $('.realtime').append(date.toLocaleDateString('en-GB') + ' ' + date.toLocaleTimeString('en-US'));
+                $('.month-order').append(data.orderCount);
+                $('.month-revenue').append(data.revenue.toLocaleString('vi-VN') + 'đ');
+                $('.month-psold').append(data.productSold);
+                $('.month-newcus').append(data.customerCount);
+            }
+        })
+    }
+
+    $(document).ready(() => {
+        getCurrentMonthData();
+
+        $('.summary-update').click(() => {
+            getCurrentMonthData();
+        })
+    })
+
+    //---Get revenue data / chart.js ------------------------------------
+    $(document).ready(() => {
+        $.ajax({
+            type: 'Get',
+            url: '/admin/dashboard/getrevenue',
+            success: (res) => {
+                var ctx = $('#revenue-chart');
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [res.data[0].month, res.data[1].month, res.data[2].month, res.data[3].month, res.data[4].month, res.data[5].month],
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: [res.data[0].revenue, res.data[1].revenue, res.data[2].revenue, res.data[3].revenue, res.data[4].revenue, res.data[5].revenue],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: false
+                            }
+                        }
+                    }
+                })
+            }
+        })
+    })
+</script>

@@ -1,0 +1,38 @@
+﻿@model STech_Web.ViewModel.RegisterVM
+
+<div class="register position-fixed">
+    <div class="form-container position-relative">
+        <div class="close-form close-register position-absolute">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h3 class="form-header text-center m-0">ĐĂNG KÝ</h3>
+        <div class="form-error"></div>
+        <form action="#" method="post" class="register-form">
+            <div class="form-input-box position-relative d-flex align-items-center">
+                @Html.TextBoxFor(row => row.ResUsername, new { @class = "form-input", autocomplete = true })
+                @Html.LabelFor(row => row.ResUsername, "Tên đăng nhập", new { @class = "input-label position-absolute" })
+            </div>
+            @Html.ValidationMessageFor(row => row.ResUsername)
+            <div class="form-input-box position-relative d-flex align-items-center">
+                @Html.PasswordFor(row => row.ResPassword, new { @class = "form-input" })
+                @Html.LabelFor(row => row.ResPassword, "Mật khẩu", new { @class = "input-label position-absolute" })
+            </div>
+            @Html.ValidationMessageFor(row => row.ResPassword)
+            <div class="form-input-box position-relative d-flex align-items-center">
+                @Html.PasswordFor(row => row.ResConfirmPassword, new { @class = "form-input" })
+                @Html.LabelFor(row => row.ResConfirmPassword, "Nhập lại mật khẩu", new { @class = "input-label position-absolute" })
+            </div>
+            @Html.ValidationMessageFor(row => row.ResConfirmPassword)
+            <div class="form-input-box position-relative d-flex align-items-center">
+                @Html.TextBoxFor(row => row.Email, new { @class = "form-input", autocomplete = true, type="email" })
+                @Html.LabelFor(row => row.Email, "Email", new { @class = "input-label position-absolute" })
+            </div>
+            @Html.ValidationMessageFor(row => row.Email)
+            <button type="submit" class="form-submit-btn">ĐĂNG KÝ</button>
+            <div class="form-bottom text-center">
+                <span>Đã có tài khoản?</span>
+                <a href="#" class="login-now-link">Đăng nhập</a>
+            </div>
+        </form>
+    </div>
+</div>

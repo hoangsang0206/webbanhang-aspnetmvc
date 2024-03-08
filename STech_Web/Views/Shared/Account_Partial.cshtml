@@ -1,0 +1,58 @@
+﻿
+<div class="forgot-password position-fixed">
+    <div class="form-container position-relative">
+        <div class="close-form close-forgot-password position-absolute">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h3 class="form-header text-center m-0">QUÊN MẬT KHẨU</h3>
+        <div class="form-error"></div>
+        <form action="/" method="post" class="forgot-password-form">
+            <div class="form-input-box position-relative d-flex align-items-center">
+                <input type="text" id="forgot-password-username" name="username" value="" class="form-input" required autocomplete="off" />
+                <label for="forgot-password-username" class="input-label position-absolute">Tên đăng nhập</label>
+            </div>
+            <div class="back-to-login-box text-start">
+                <a href="#" class="back-to-login-link">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Quay lại
+                </a>
+            </div>
+            <button type="submit" class="form-submit-btn" disabled>ĐANG CẬP NHẬT</button>
+        </form>
+    </div>
+</div>
+
+<div class="reset-password position-fixed">
+    <div class="form-container position-relative">
+        <div class="close-form close-register position-absolute">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <h3 class="form-header text-center m-0">ĐẶT LẠI MẬT KHẨU</h3>
+        <div class="form-error"></div>
+        <form action="/" method="post" class="reset-password-form">
+            <div class="form-input-box position-relative d-flex align-items-center">
+                <input type="password" id="reset-password" name="password" value="" class="form-input" required />
+                <label for="reset-password" class="input-label position-absolute">Mật khẩu</label>
+            </div>
+            <div class="form-input-box position-relative d-flex align-items-center">
+                <input type="password" id="re-enter-reset-password" name="password" value="" class="form-input" required />
+                <label for="re-enter-reset-password" class="input-label position-absolute">Nhập lại khẩu</label>
+            </div>
+            <button type="submit" class="form-submit-btn" disabled>ĐANG CẬP NHẬT</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="logout-confirm position-fixed">
+    <div class="logout-confirm-box d-flex d-flex flex-column align-items-center">
+        <i class="fa-regular fa-circle-question"></i>
+        <span>Bạn chắc chắn muốn đăng xuất?</span>
+        <div class="logout-confirm-btn-box d-flex justify-content-between">
+            <button class="logout-confirm-no">Không</button>
+            <button class="logout-confirm-yes">Đồng ý</button>
+        </div>
+    </div>
+</div>
+
+<!------------------------------------------------>

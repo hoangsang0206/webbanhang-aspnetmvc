@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Menu danh mục";
+}
+
+@model List<STech_Web.Models.SidebarMenuNav>  
+
+<div class="megamenu position-relative mb-4">
+    @{
+        Html.RenderPartial("WeatherPartial");
+    }
+
+    <h2 class="title">Menu danh mục</h2>
+    <div class="breadcrumb">
+        <ul class="breadcrumb-list d-flex">
+            <li class="breadcrumb-item">
+                <a href="/admin">Admin</a>
+            </li>
+            <li class="breadcrumb-item">
+                Menu danh mục
+            </li>
+        </ul>
+    </div>
+
+    <div class="megamenu-main">
+        <div class="megamenu-wrapper d-flex flex-row gap-3">
+            <ul class="megamenu__left">
+                @foreach(var item in Model)
+                {
+                    <li class="megamenu-item">
+                        <div class="megamenu-item-box active d-flex">
+                            <span>
+                                @Html.Raw(item.SidebarIcon)
+                                @item.SidebarItemName
+                            </span>
+
+                            <i class='bx bxs-edit edit-megamenu-btn'></i>
+                            <i class='bx bx-trash delete-megamenu-btn'></i>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,514 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-------------------------------------->
+    <link rel="shortcut icon" href="~/images/logo/favicon.ico" type="image/x-icon">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Box icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- Slick Slider -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="~/css/home.css?Version=1" />
+    <link rel="stylesheet" type="text/css" href="~/css/style.css?Version=2" />
+    <link rel="stylesheet" type="text/css" href="~/css/collections.css?Version=1" />
+    <link rel="stylesheet" type="text/css" href="~/css/product.css?Version=1" />
+    <link rel="stylesheet" type="text/css" href="~/css/account.css?Version=1" />
+    <link rel="stylesheet" type="text/css" href="~/css/cart.css?Version=1" />
+
+    <!--------------------------------------------------------------------------->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js" defer></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous" defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js" defer></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js" defer></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.js" defer></script>
+    <script type="text/javascript" src="/Scripts/jquery.validate.unobtrusive.js" defer></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js" defer></script>
+    <script src="https://js.stripe.com/v3/" defer></script>
+    <script type="text/javascript" src="/js/script.js?Version=2" defer></script>
+    <script type="text/javascript" src="/js/account.js?Version=2" defer></script>
+    <script type="text/javascript" src="/js/cart.js?Version=1" defer></script>
+    <script type="text/javascript" src="/js/order.js" defer></script>
+    <script type="text/javascript" src="/js/products.js" defer></script>
+    @using STech_Web.Models;
+</head>
+<body>
+
+    <header>
+        <div class="top-header">
+        </div>
+        <div class="container-xxl">
+            <div id="header">
+                <div class="header-box">
+                    <div class="mobile-categories-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                    <a href="\" class="mobile-logo">
+                        <img src="/images/logo/stech-logo-mobile.png" alt="Stech Logo">
+                    </a>
+                    <a href="\" class="logo">
+                        <img src="/images/logo/stech-logo.png" alt="Stech Logo">
+                    </a>
+                </div>
+                <div class="categories-btn">
+                    <i class="fa-solid fa-bars"></i>
+                    <span>Danh mục</span>
+                </div>
+
+                <div class="search d-flex align-items-center">
+                    <div class="close-search flex-column align-items-center">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    <form action="/search" method="get" class="search-form">
+                        <input type="text" id="search" name="search" class="search-box" placeholder="Bạn cần tìm gì?" required autocomplete="off" />
+                        <button type="submit" class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                    <div class="ajax-search-autocomplete">
+                        <div class="ajax-search-items"></div>
+                        <div class="ajax-search-empty text-black">
+                            Không tìm thấy sản phẩm nào...
+                        </div>
+                    </div>
+                    <div class="search-history">
+                        <h4>Lịch sử tìm kiếm:</h4>
+                        <ul class="search-history-list">
+                        </ul>
+                        <div class="clear-search-history d-flex align-items-center justify-content-center">
+                            Xóa lịch sử tìm kiếm
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-hotline">
+                    <i class="fa-solid fa-headphones-simple header-icon"></i>
+                    <span>
+                        Hotline: <br />
+                        <b>0123456789</b>
+                    </span>
+                </div>
+                <div class="order-check">
+                    <a href="/account#orders">
+                        <i class="fa-regular fa-clipboard header-icon"></i>
+                        <span>Tra cứu đơn hàng</span>
+                    </a>
+                </div>
+                <div class="header-btn">
+                    <div class="cart-btn">
+                        <a href="/cart">
+                            <ion-icon name="cart-outline"></ion-icon>
+                            <div class="cart-count-holder">
+                                <div class="cart-count">0</div>
+                            </div>
+                            <span>Giỏ <br>hàng</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="login-btn-box position-relative">
+                    <div class="login-btn">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="/account" class="logged-link">
+                                <span>@User.Identity.Name</span>
+                            </a>
+                            <div class="login-info-box account-logged position-absolute">
+                                <a href="/account">
+                                    <div class="login-info-name">
+                                        <img src="/images/icons/hello.png" alt="" />
+                                        <span> Xin chào, @User.Identity.Name</span>
+                                    </div>
+                                </a>
+                                <hr />
+                                <a href="/account#orders">
+                                    <div class="login-info-order">
+                                        <i class="fa-regular fa-clipboard"></i>
+                                        <span>Đơn hàng của tôi</span>
+                                    </div>
+                                </a>
+                                <hr />
+                                <div class="login-info-logout d-flex align-items-center">
+                                    <ion-icon name="log-out-outline"></ion-icon>
+                                    <span>Đăng xuất</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="#" class="login-link">
+                                <i class="fa-regular fa-user header-icon login-btn"></i>
+                                <span>Đăng<br /> nhập</span>
+                            </a>
+
+                            <div class="login-info-box position-absolute">
+                                <h4>Đăng nhập/Đăng ký</h4>
+                                <div class="login-register-btn-box d-flex align-items-center">
+                                    <button class="action-login-btn position-relative">
+                                        Đăng nhập
+                                    </button>
+                                    <button class="action-register-btn position-relative">
+                                        Đăng ký
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sub-header">
+            <div class="container-xxl">
+                <ul class="sub-header-item-list d-flex align-items-center">
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    @{
+        Html.RenderPartial("Account_Partial");
+        Html.RenderPartial("LoginPartial", new STech_Web.ViewModel.LoginVM());
+        Html.RenderPartial("RegisterPartial", new STech_Web.ViewModel.RegisterVM());
+    }
+
+    <nav>
+        <div class="container-xxl">
+            <div class="navigation">
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-tags nav-icon"></i>
+                    <span>Tổng hợp khuyến mãi</span>
+                </a>
+                <div class="nav-break"></div>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-screwdriver-wrench nav-icon"></i>
+                    <span>Chính sách bảo hành</span>
+                </a>
+                <div class="nav-break"></div>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-credit-card nav-icon"></i>
+                    <span>Hướng dẫn thanh toán</span>
+                </a>
+                <div class="nav-break"></div>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-money-check-dollar nav-icon"></i>
+                    <span>Hướng dẫn trả góp</span>
+                </a>
+                <div class="nav-break"></div>
+                <a href="#" class="nav-item">
+                    <i class="fa-solid fa-newspaper nav-icon"></i>
+                    <span>Tin tức</span>
+                </a>
+                <div class="nav-break"></div>
+                <a href="/about" class="nav-item">
+                    <i class="fa-solid fa-phone nav-icon"></i>
+                    <span>Liên hệ</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <nav class="bottom-nav-mobile justify-content-between align-items-center">
+        <a href="\" class="bottom-nav-link bottom-nav-home d-flex flex-column align-items-center justify-content-center @( ViewBag.ActiveBotNav == "home" ? "nav-link-active" : "")">
+            <ion-icon name="home-outline" class="bottom-nav-icon"></ion-icon>
+            <span>Trang chủ</span>
+        </a>
+        <div class="bottom-nav-link bottom-nav-show-sidebar d-flex flex-column align-items-center justify-content-center">
+            <ion-icon name="grid-outline" class="bottom-nav-icon"></ion-icon>
+            <span>Danh mục</span>
+        </div>
+        <a href="/account#orders" class="bottom-nav-link bottom-nav-promotion d-flex flex-column align-items-center justify-content-center">
+            <ion-icon name="clipboard-outline" class="bottom-nav-icon"></ion-icon>
+            <span>Đơn hàng</span>
+        </a>
+        <a href="#" class="bottom-nav-link bottom-nav-chat d-flex flex-column align-items-center justify-content-center">
+            <ion-icon name="chatbubbles-outline" class="bottom-nav-icon"></ion-icon>
+            <span>Tư vấn</span>
+        </a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a href="/account" class="bottom-nav-link d-flex flex-column align-items-center justify-content-center @( ViewBag.ActiveBotNav == "account" ? "nav-link-active" : "")">
+                <ion-icon name="person-outline" class="bottom-nav-icon"></ion-icon>
+                <span>@User.Identity.Name</span>
+            </a>
+        }
+        else
+        {
+            <a href="#" class="bottom-nav-link bottom-nav-account d-flex flex-column align-items-center justify-content-center">
+                <ion-icon name="person-outline" class="bottom-nav-icon"></ion-icon>
+                <span>Tài khoản</span>
+            </a>
+        }
+    </nav>
+
+    <div class="mobile-sidebar">
+        <div class="mobile-sidebar-header d-flex align-items-center justify-content-between">
+            <span class="mobile-sidebar-header-title">DANH MỤC SẢN PHẨM</span>
+            <div class="sidebar-close-btn">
+                <ion-icon name="close-outline" class="close-icon"></ion-icon>
+            </div>
+        </div>
+        <div class="mobile-sidebar-content">
+            @{
+                Html.RenderPartial("Megamenu_Partial");
+            }
+
+            <div class="mobile-sidebar-info">
+                <h4 class="sidebar-info-title">
+                    Thông tin
+                </h4>
+                <div class="sidebar-info-content">
+                    <ul class="sidebar-info-list">
+                        <li class="sidebar-info-list-item">
+                            <a href="#" class="sidebar-info-link sidebar-info-phone">
+                                <i class="fa-solid fa-phone-volume megamenu-icon"></i>
+                                0123456789
+                            </a>
+                        </li>
+                        <li class="sidebar-info-list-item">
+                            <a href="#" class="sidebar-info-link">
+                                <i class="fa-solid fa-tags megamenu-icon"></i>
+                                Tổng hợp khuyến mãi
+                            </a>
+                        </li>
+                        <li class="sidebar-info-list-item">
+                            <a href="#" class="sidebar-info-link">
+                                <i class="fa-solid fa-screwdriver-wrench megamenu-icon"></i>
+                                Chính sách bảo hành
+                            </a>
+                        </li>
+                        <li class="sidebar-info-list-item">
+                            <a href="#" class="sidebar-info-link">
+                                <i class="fa-solid fa-credit-card megamenu-icon"></i>
+                                Hướng dẫn thanh toán
+                            </a>
+                        </li>
+                        <li class="sidebar-info-list-item">
+                            <a href="#" class="sidebar-info-link">
+                                <i class="fa-solid fa-money-check-dollar megamenu-icon"></i>
+                                Hướng dẫn trả góp
+                            </a>
+                        </li>
+                        <li class="sidebar-info-list-item">
+                            <a href="#" class="sidebar-info-link">
+                                <i class="fa-solid fa-newspaper megamenu-icon"></i>
+                                Tin tức
+                            </a>
+                        </li>
+                        <li class="sidebar-info-list-item">
+                            <a href="/about" class="sidebar-info-link">
+                                <i class="fa-solid fa-phone megamenu-icon"></i>
+                                Liên hệ
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="hidden-menu">
+            <div class="container-xxl hidden-menu-box">
+                <section class="menu">
+                    @{
+                        Html.RenderPartial("Megamenu_Partial");
+                    }
+                </section>
+            </div>
+        </div>
+        <div class="container-xxl">
+
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-xxl">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-2">
+                    <div class="footer-col">
+                        <div class="footer-title d-flex justify-content-between">
+                            VỀ STECH
+                            <span class="icon-title"></span>
+                        </div>
+                        <div class="footer-content">
+                            <a href="/about">Giới thiệu</a>
+                            <a href="#">Tuyển dụng</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-2">
+                    <div class="footer-col">
+                        <div class="footer-title d-flex justify-content-between">
+                            CHÍNH SÁCH
+                            <span class="icon-title"></span>
+                        </div>
+                        <div class="footer-content">
+                            <a href="#">Chính sách bảo hành</a>
+                            <a href="#">Chính sách thanh toán</a>
+                            <a href="#">Chính sách giao hàng</a>
+                            <a href="#">Chính sách bảo mật</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-2">
+                    <div class="footer-col">
+                        <div class="footer-title d-flex justify-content-between">
+                            THÔNG TIN
+                            <span class="icon-title"></span>
+                        </div>
+                        <div class="footer-content">
+                            <a href="#">Hệ thống cửa hàng</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="footer-col">
+                        <div class="footer-title d-flex justify-content-between">
+                            TỔNG ĐÀI HỖ TRỢ
+                            <span class="icon-title"></span>
+                        </div>
+                        <div class="footer-content">
+                            <div class="footer-list-info">
+                                <p>
+                                    <span>Gọi mua:</span>
+                                    <span>0123456789</span>
+                                    <span>(8:00 - 21:00)</span>
+                                </p>
+                                <p>
+                                    <span>CSKH:</span>
+                                    <span>0123456789</span>
+                                    <span>(8:00 - 21:00)</span>
+                                </p>
+                                <p>
+                                    <span>Email:</span>
+                                    <span>lehoangsang02062003@gmail.com</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="footer-col">
+                        <div class="footer-col">
+                            <div class="footer-title d-flex justify-content-between">
+                                ĐƠN VỊ VẬN CHUYỂN
+                                <span class="icon-title"></span>
+                            </div>
+                            <div class="footer-content">
+                                <div class="footer-delivery d-flex flex-wrap">
+                                    <img src="/images/delivery/emsvn-logo.png" alt="EMS VN" class="delivery-logo">
+                                    <img src="/images/delivery/ghtk-logo.png" alt="GHTK" class="delivery-logo">
+                                    <img src="/images/delivery/ghn-logo.png" alt="GHN" class="delivery-logo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-col">
+                        <div class="footer-col">
+                            <div class="footer-title d-flex justify-content-between">
+                                CÁCH THỨC THANH TOÁN
+                                <span class="icon-title"></span>
+                            </div>
+                            <div class="footer-content">
+                                <div class="footer-paylist d-flex flex-wrap">
+                                    <img src="/images/payment/cash-payment.png" alt="" class="payment-item">
+                                    <img src="/images/payment/internet-banking.jpg" alt="..." class="payment-item">
+                                    <img src="/images/payment/momo.png" alt="" class="payment-item">
+                                    <img src="/images/payment/visa.png" alt="" class="payment-item">
+                                    <img src="/images/payment/mastercard.png" alt="" class="payment-item">
+                                    <img src="/images/payment/paypal.jpg" alt="" class="payment-item" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-break"></div>
+            <div class="footer-bottom d-flex align-items-center">
+                <div class="footer-title">
+                    KẾT NỐI VỚI CHÚNG TÔI
+                </div>
+                <div class="social-list">
+                    <a href="#" class="social-link">
+                        <i class="fa-brands fa-facebook social-icon"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fa-brands fa-tiktok social-icon"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fa-brands fa-youtube social-icon"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fa-brands fa-github social-icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="to-top-btn">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+    <section class="overlay"></section>
+
+    <section class="webloading">
+        <div class="loader"></div>
+    </section>
+
+    <section class="change-theme position-fixed">
+        <div class="change-theme-wrapper position-relative">
+            <i class='bx bx-chevron-left toogle-theme-btn position-absolute'></i>
+            <div class="theme-select">
+                <div class="theme-item">
+                    <input type="radio" id="theme-1" name="theme" value="theme-1" />
+                    <label for="theme-1" class="theme-label-box d-flex align-items-center gap-2">
+                        <span class="theme-color theme-color-1"></span>
+                        <span class="theme-label"></span>
+                    </label>
+                </div>
+                <div class="theme-item">
+                    <input type="radio" id="theme-2" name="theme" value="theme-2" />
+                    <label for="theme-2" class="theme-label-box d-flex align-items-center gap-2">
+                        <span class="theme-color theme-color-2"></span>
+                        <span class="theme-label"></span>
+                    </label>
+                </div>
+                <div class="theme-item">
+                    <input type="radio" id="theme-3" name="theme" value="theme-3" />
+                    <label for="theme-3" class="theme-label-box d-flex align-items-center gap-2">
+                        <span class="theme-color theme-color-3"></span>
+                        <span class="theme-label"></span>
+                    </label>
+                </div>
+                <div class="theme-item">
+                    <input type="radio" id="theme-4" name="theme" value="theme-4" />
+                    <label for="theme-4" class="theme-label-box d-flex align-items-center gap-2">
+                        <span class="theme-color theme-color-4"></span>
+                        <span class="theme-label"></span>
+                    </label>
+                </div>
+                <div class="theme-item">
+                    <input type="radio" id="theme-5" name="theme" value="theme-5" />
+                    <label for="theme-5" class="theme-label-box d-flex align-items-center gap-2">
+                        <span class="theme-color theme-color-5"></span>
+                        <span class="theme-label"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+

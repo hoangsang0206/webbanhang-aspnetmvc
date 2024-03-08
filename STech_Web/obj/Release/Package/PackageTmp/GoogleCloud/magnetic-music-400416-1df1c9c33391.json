@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "magnetic-music-400416",
+  "private_key_id": "1df1c9c3339117e2e9f396a19c86f8532c50eafa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCm4JCwz8Z/u4Dt\nnvVfhaaCLjzY2YtKrBplAnXFS9WJfgdOMu4/uiUJ7Gd0WUXUzqhWoS2/lDhT7wzj\nvO8a6X4bZlxooe3UaFSKC+oUADS49NHqluiqsebpAAzNFSxBVy4Xehf+MTS3EUQc\nooegjSi8ZOB2ECul7FooflGHnNkPCP657f4QvpUU47PfgXx6RjuHx4nKtD/HGj+1\nq619E3GXK3NJCzvotRX6PAoMHaN26VN4MP9xeEEn8kiVKCvHXXYo/6p4sUsSz/WR\ns7xxHZI7RSidxiV8MV21AExVvh8Nk/spTZf9SXDFZ0IAOUkYOnGmukFEEbRuvzqE\nq2l7wNYnAgMBAAECggEACeyZ/kHlCqyifr8w1YTzwZMxYC4T2BWDHlW2nkyjvuEF\nWzOxMo4F7OCnyGYUvpKptTkxqM6OSQOS7ypJx/5x1vxP65MRu0uXF3yc56KZgBRj\nNYHTBW++DUZI/JtRPfOK1K+YpK/VdDutIszRpw0uCoIvTSYqClyTggv9GkUMLZYh\nQ0G6iAorW+1Jzw9raBHQVa5WjKIBwoW7dy4GSIuWZdr3zkN7Gd2FJREZm+cBSFfv\nnqEbyi88N0BfSwavi+fZqE54Vt8US3mHmBTC+XSl+3HeCTrw9j5lWfVrqAXXlgeC\nIG03AyoOr+V6AS0Ahp/oS9sCB8lMg0GhQ4NXXpuvnQKBgQDVX1GVJalksyU04Jyk\n7ng5D30TsHFFtjugfSMAwab0BlCQIqYFSQBnUC7FrssY8XmwgCbrFKNEzJha4M0x\n6pk3jf+qkb2NQGJojI2S7cL4fTGdsHlkxXxpylN16rn2/xlcss7pcQ4KPnyGBrfJ\n8NPPISovr2oJjydeLSfB64Z0uwKBgQDIN06OcEZkbestjvzZ8bsAK9txFGmBzFRs\n6dA0wd6FJ+9er0sDwyqubb0W2JG/vAmI2wZ453zHpaIUGlzX3YdaJjT/DwYwAjDr\nulhwXvUXY2C4vAn5J/ybWkC/mMwnih8L5S5rye/PGPxHNn4Akv6IQ5jP4NNkjlV0\nKLVJLhgDhQKBgQCfF6g7vc4U0GJAj+0cKNapLPxEjv2WTe8dldBggwOZ1Y+COONy\n82CCp82IBfFXEs16JcNe6o9l/+rlb9Jvko1VV+I2at5bkJMPgyUYVYFXR/mTqv6I\nfZtrQbmDJVYtbT2a2ZPfiTU/vCGayS2GO7OiMAdFcNRudjeTR7XqKFOjewKBgHyW\n3g2JFGS+edB54CKHaEStBfsSJq2cxxSXUvbhhWT6+tvC3T1UH6U3qKkkz12u14gQ\nM7Dc7CsYiQlVdlzl/6o7iFMHuGP7mRG3ff0/Oej58GBEszgWh/zsZspTfQdFzhgK\n3543pUEMXUC7SiF1V2rYFamWUDWM1ORZyKXnRw45AoGAB3n/Jg+ATZJvcqemtGvd\nEU1VBSGT46kstJ0hnOxTz/kIGi1t+22TlxDS+EVOVWKJjGE683T2A2sYi5eC7KBj\nsX1yfUerUbusKyv6gW1kcGaWRZdV3bbM/pZcA04l6SKnR6MuIHbJrp8PSlKXltkB\nyyU7hj69FCTBnBLFLLE+aPU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "stechweb@magnetic-music-400416.iam.gserviceaccount.com",
+  "client_id": "114858598923608873004",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/stechweb%40magnetic-music-400416.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

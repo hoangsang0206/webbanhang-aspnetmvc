@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Thanh toán thành công.";
+}
+
+<section class="cart-wrapper">
+    <div class="container-fluid">
+        <div class="breadcrumb-cart">
+            <a href="/collections/all">
+                <i class="fa-solid fa-chevron-left"></i>
+                <span>Mua thêm sản phẩm khác</span>
+            </a>
+        </div>
+        <div class="cart-main">
+
+            <div class="checkout-steplist">
+                <div class="checkout-step step-1 step-active">
+                    <i class='bx bxs-shopping-bag-alt step-icon'></i>
+                    <span class="step-text">Giỏ hàng</span>
+                </div>
+                <div class="checkout-step step-2 step-active">
+                    <i class='bx bxs-id-card step-icon'></i>
+                    <span class="step-text">Thông tin đặt hàng</span>
+                </div>
+                <div class="checkout-step step-3 step-active">
+                    <i class='bx bxs-credit-card step-icon'></i>
+                    <span class="step-text">Thanh toán</span>
+                </div>
+                <div class="checkout-step step-4 step-active">
+                    <i class='bx bxs-check-shield step-icon'></i>
+                    <span class="step-text">Hoàn tất</span>
+                </div>
+            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="cart-info" id="cart-payment-box">
+                    <div class="cart-payment-wrapper">
+                        <div class="payment-status-wrapper">
+                            <div class="payment-status d-flex flex-column align-items-center gap-3">
+                                <i class="fa-solid fa-circle-check p-success-icon"></i>
+                                <h5>Thanh toán thành công.</h5>
+                                <p>Cảm ơn bạn đã ủng hộ chúng tôi.</p>
+                                <button class="to-home-page-btn" onclick="window.location.href='/'">
+                                    VỀ TRANG CHỦ
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
